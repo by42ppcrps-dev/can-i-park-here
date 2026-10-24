@@ -1,0 +1,16 @@
+{
+  "name": "can-i-park-here",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Snap a parking sign pole, get one clear answer for right now, and see the whole week at a glance.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "node --test \"test/*.test.js\"",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.150.0"
+  }
+}
