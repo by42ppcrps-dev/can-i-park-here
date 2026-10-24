@@ -40,3 +40,39 @@ Skipped the invitation, as the skill says to when concise onboarding is preferre
 **Review format.** Volunteered, so recorded now. Quoted: "Review format: markdown."
 
 **Output.** `devpost/learner-profile.md` written (gitignored).
+
+---
+
+## 2-scope
+
+**Where are we.** `learner-profile.md` exists. No `scope.md`. Began fresh, shaping the idea Matt brought (no discovery needed).
+
+**Frame.** Explained scope as the broad overview of what is in and out, sized to a proof of concept. Speech-to-text tip given once. Questions batched two or three at a time, per Matt's preference.
+
+**Q1 (brain dump). Tell me everything. What's the idea? What excites you about it? Who would use it? What does it look like in your head?**
+Quoted: "Every city driver has stared at a pole of 4 signs doing mental math." "Who: everyday city drivers, visitors, new drivers, people with low English literacy or dyslexia, anyone in a hurry." "Core promise: snap the pole, get one clear answer for right now, and see the whole week at a glance." Plus the full must-have list (items 1 to 10 in the brief).
+
+**Q2 (sharpen the gaps). Who is the one person you picture using it, and what do they do today instead?**
+Derived from the "Problem" and "Who" lines: a driver at a stacked pole who today guesses, risks a ticket or tow, or circles the block afraid to park.
+
+**Q3 (kernel). What's distinctive about your version of this idea?**
+Quoted: "The AI reads the signs (vision model); a plain, testable rules engine decides. The AI never decides 'yes' by itself." and must-have 8: "Never a confident wrong YES: when uncertain, say Not sure." The week grid with a draggable time travel line (must-have 5) is the visible half of the kernel.
+
+**Q4 (define done). What does someone open, what do they do, and what do they see that proves it works?**
+Derived from must-haves 1 to 5 and 9: tap a sample pole or snap one, see the scan animation, check the sign cards, get a giant verdict, drag the time travel line and watch the verdict change, tap a block to see which sign caused it, and see an honest accuracy card. Reminded that submission needs a short demo video and a public GitHub repo; deployment is optional.
+
+**Q5 (cut).** The boundary was already set, so summarized it instead of asking for more cuts.
+Quoted (out of scope): "Accounts, maps/GPS, payments, meter apps, crowdsourcing, native app, multiple languages (maybe later), reminders beyond an optional .ics 'move my car' download (nice-to-have only)."
+- .ics download placed in **Later**, consistent with "nice-to-have only". Operator decision (Matt to review): Later rather than now, to protect the 2 to 4 hour target.
+- Reasons given for each cut in `scope.md > Explicitly Cut` are derived from the brief's intent (one photo is the input; nothing to save). Operator decision (Matt to review): wording of those reasons.
+
+**Explore more or review.** Readiness criteria met (user, loop, proof, boundary). Drafted `devpost/scope.md` with `status: draft` and saved it.
+
+**Review format.** Already set: markdown. No HTML companion.
+
+**Feedback given at review.**
+Sharp: the kernel is a real trust mechanism ("AI reads, rules decide, Not sure beats a wrong YES"), and the user is specific. The cut list is clean.
+Soft: the "now" list is ambitious for 2 to 4 hours (ten must-haves, including arrow side and a 20+ photo accuracy test). The build should sequence the kernel first (sample pole, cards, verdict, grid) so arrow side and the accuracy card can shrink if time runs short. "Hand-checked answers" needs an owner for the hand check; carried to the PRD.
+
+**Q. Does this look good, or would you change anything?**
+Answer: approved. Relayed by Matt's operator under the brief's instruction to build from these standing answers. Set `status: approved`.
