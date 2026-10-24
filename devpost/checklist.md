@@ -21,7 +21,7 @@ Build mode: fast (Matt's standing choice, "every step verified and committed"; r
   Learner check: Open the live URL on your phone, upload a photo of a sign pole, and see a list of the signs it read within about 10 seconds.
   Commit: `Read signs live: worker, Workers AI reader, validator, upload`
 
-- [ ] **2. The signs become a giant, trustworthy answer**
+- [x] **2. The signs become a giant, trustworthy answer**
   Becomes usable: After reading, the signs show as numbered sign cards with plain-language rules and "Use this sign" switches; "Show my answer" reveals the giant YES / NO / NOT SURE verdict for right now, the stay chips, and the arrow side question. Switching a card or changing a chip updates the answer instantly.
   Why now: This is the unique kernel: the AI reads, the rules engine decides, and it never gives a confident wrong YES. It must exist and be proven by tests before anything is built around it.
   PRD ref: `prd.md > Confirming the Signs`, `prd.md > Which Side of the Pole`, `prd.md > The Verdict`, `prd.md > Never a Confident Wrong Yes`, `prd.md > Stay Length`, `prd.md > States and Boundaries`
@@ -109,3 +109,6 @@ Activity mode: not started
 - Rules gained an optional `condition` field, and the validator adds one when the sign text names snow, school days, events, or months but the model dropped it. The first live reading (Chicago snow and street cleaning sign) showed the model copies conditions into the text but loses them in the rules. The engine treats conditional rules as Not sure.
 - `npm test` runs `node --test "test/*.test.js"`. Node 22 does not accept a bare directory.
 
+- Conflicts are judged per sign. Rules on the same sign combine (a 2 hour limit plus "pay at meter" is one 2 hour metered block), and across signs only two different limits, or free versus paid, count as disagreeing. A "PAY AT METER" sign next to a "2 HOUR PARKING" sign is a normal pairing on real poles, and treating it as a conflict would make most metered poles Not sure.
+- The week grid draws each day as a column of positioned runs instead of a 7 by 96 CSS grid. Same look, fewer elements, and simpler drag math.
+- `compatibility_date` is 2026-10-13, the newest the local Wrangler runtime supports, so `npm run dev` works.

@@ -2,32 +2,220 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Can I Park Here</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Can I Park Here? One clear answer for any sign pole</title>
+  <meta name="description" content="Snap a parking sign pole and get one clear answer for right now, plus the whole week at a glance. The AI reads the signs; a plain rules engine decides.">
+  <meta name="theme-color" content="#F7F5F0">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Can I Park Here?">
+  <meta property="og:description" content="Snap the sign pole. Get one clear answer, and see the whole week at a glance.">
+  <meta property="og:url" content="https://can-i-park-here.lumegridai.workers.dev/">
+  <meta property="og:image" content="https://can-i-park-here.lumegridai.workers.dev/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-  <h1>Can I Park Here</h1>
-  <input id="file" type="file" accept="image/*">
-  <p id="status"></p>
-  <pre id="out"></pre>
-  <script type="module">
-    import { shrinkPhoto, readPhoto } from "/js/photo.js";
-    const status = document.getElementById("status");
-    const out = document.getElementById("out");
-    document.getElementById("file").addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      try {
-        status.textContent = "Reading signs...";
-        const { dataUrl } = await shrinkPhoto(file);
-        const result = await readPhoto(dataUrl);
-        status.textContent = `${result.signs.length} signs (${result.model}, ${result.ms} ms)`;
-        out.textContent = result.signs.map((s) =>
-          `${s.id}. ${s.text} [arrow ${s.arrow}] ${s.readable ? "" : "NOT SURE: " + s.problem}\n   ` +
-          s.rules.map((r) => `${r.kind} ${r.days.join(",")} ${r.start}-${r.end}`).join("\n   ")).join("\n");
-      } catch (err) {
-        status.textContent = "Couldn't read this photo right now. (" + err.message + ")";
-      }
-    });
-  </script>
+  <svg width="0" height="0" class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5 10-11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-q" viewBox="0 0 24 24"><path d="M8.6 9.2a3.5 3.5 0 1 1 5.2 3c-1.2.7-1.8 1.4-1.8 2.8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="12" cy="19.2" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.6-2.4h6.8L17 8h3v11H4z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="12" cy="13.2" r="3.4" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L7.5 8.5M12 4l4.5 4.5M5 15v4h14v-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M20 12H5m0 0l6-6m-6 6l6 6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M4 12h15m0 0l-6-6m6 6l-6 6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-both" viewBox="0 0 24 24"><path d="M3.5 12h17M3.5 12l5-5m-5 5l5 5m12-5l-5-5m5 5l-5 5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M10 6l-6 6 6 6M4.5 12H20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-now" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.3-5.4M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="logo" viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" rx="12" fill="#1747A6"/><rect x="8.5" y="8.5" width="47" height="47" rx="8.5" fill="none" stroke="#fff" stroke-width="3"/><path d="M22 47V17h11.5a9.5 9.5 0 0 1 0 19H22" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round"/><circle cx="49" cy="49" r="13" fill="#1E7B45" stroke="#F7F5F0" stroke-width="3.5"/><path d="M43 49.3l4 4 8-8.6" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" id="home-link" aria-label="Can I Park Here, home">
+      <svg class="brand-logo" aria-hidden="true"><use href="#logo"/></svg>
+      <span class="brand-word">Can I Park <em>Here</em></span>
+    </a>
+  </header>
+
+  <main id="main">
+    <!-- START VIEW -->
+    <section id="view-start" class="view" data-view="start" aria-labelledby="start-title">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">For the pole with four signs on it</p>
+          <h1 id="start-title">Can I park here?</h1>
+          <p class="promise">Snap the sign pole. Get one clear answer.</p>
+          <div class="photo-actions">
+            <label class="btn btn-primary btn-big" for="camera-input">
+              <svg class="ico" aria-hidden="true"><use href="#i-camera"/></svg>
+              Take a photo
+            </label>
+            <input id="camera-input" class="visually-hidden" type="file" accept="image/*" capture="environment">
+            <label class="btn btn-ghost" for="upload-input">
+              <svg class="ico" aria-hidden="true"><use href="#i-upload"/></svg>
+              Upload a photo
+            </label>
+            <input id="upload-input" class="visually-hidden" type="file" accept="image/*">
+          </div>
+          <p class="fineprint"><svg class="ico ico-sm" aria-hidden="true"><use href="#i-check"/></svg> Photos are not stored.</p>
+          <p id="start-error" class="alert" role="alert" hidden></p>
+        </div>
+        <div class="hero-demo" aria-hidden="true">
+          <div class="demo-card">
+            <div class="demo-verdict"><svg class="ico"><use href="#i-check"/></svg><span>YES</span></div>
+            <p class="demo-line">until 8:30 AM Tue</p>
+            <div class="demo-grid" id="demo-grid"></div>
+            <div class="demo-legend"><span class="sw sw-free"></span>Free <span class="sw sw-limited"></span>2H <span class="sw sw-no"></span>No parking</div>
+          </div>
+        </div>
+      </div>
+
+      <section class="samples" aria-labelledby="samples-title">
+        <h2 id="samples-title">Or try a sample pole</h2>
+        <ul id="sample-list" class="sample-list"></ul>
+      </section>
+
+      <section id="how" class="how" aria-labelledby="how-title">
+        <h2 id="how-title">How it works</h2>
+        <ol class="how-steps">
+          <li><span class="how-num">1</span><div><strong>The AI reads the signs.</strong> It copies the words and times, nothing more.</div></li>
+          <li><span class="how-num">2</span><div><strong>You check what it read.</strong> Switch off any sign that looks wrong.</div></li>
+          <li><span class="how-num">3</span><div><strong>Plain rules decide.</strong> If anything is unclear, the answer is Not sure, never a guess.</div></li>
+        </ol>
+      </section>
+
+      <section id="accuracy" class="accuracy" aria-labelledby="accuracy-title" hidden>
+        <h2 id="accuracy-title">Tested on <span data-acc="photos"></span> real sign photos</h2>
+        <p class="accuracy-sub"><span data-acc="checks"></span> answers at fixed times of the week. Real counts, last run <span data-acc="date"></span>.</p>
+        <dl class="acc-grid">
+          <div class="acc acc-right"><dt>Right answer</dt><dd data-acc="right"></dd></div>
+          <div class="acc acc-unsure"><dt>Said Not sure</dt><dd data-acc="unsure"></dd></div>
+          <div class="acc acc-wrongno"><dt>Wrong NO</dt><dd data-acc="wrongNo"></dd></div>
+          <div class="acc acc-wrongyes"><dt>Wrong YES</dt><dd data-acc="wrongYes"></dd></div>
+        </dl>
+      </section>
+
+      <p class="disclaimer">A reading aid. Always double-check the sign.</p>
+    </section>
+
+    <!-- READING VIEW -->
+    <section id="view-reading" class="view" data-view="reading" aria-labelledby="reading-title" hidden>
+      <div class="reading-stage">
+        <div class="scan-frame" id="scan-frame">
+          <img id="reading-photo" alt="Your photo of the sign pole">
+          <div class="scan-line" aria-hidden="true"></div>
+        </div>
+        <div class="reading-status">
+          <h1 id="reading-title" class="reading-text" aria-live="polite">Reading signs...</h1>
+          <p id="reading-sub" class="reading-sub">This usually takes about 10 seconds.</p>
+          <button type="button" class="btn btn-ghost" id="cancel-btn">Cancel</button>
+        </div>
+        <div class="reading-problem" id="reading-problem" role="alert" hidden>
+          <h1 id="problem-title"></h1>
+          <p id="problem-text"></p>
+          <div class="problem-actions">
+            <button type="button" class="btn btn-primary" id="retry-btn">Try again</button>
+            <button type="button" class="btn btn-ghost" id="problem-back-btn">Back</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANSWER VIEW -->
+    <section id="view-answer" class="view" data-view="answer" aria-labelledby="answer-title" hidden>
+      <h1 id="answer-title" class="visually-hidden">Your answer</h1>
+      <div class="answer-layout">
+        <div class="answer-main">
+          <div class="confirm-bar" id="confirm-bar">
+            <p class="confirm-lead" id="confirm-lead"></p>
+            <button type="button" class="btn btn-primary btn-big" id="show-answer-btn">Show my answer</button>
+          </div>
+
+          <div class="result" id="result">
+            <div class="verdict" id="verdict" aria-live="polite" aria-atomic="true">
+              <div class="verdict-inner">
+                <svg class="verdict-ico" aria-hidden="true"><use href="#i-check"/></svg>
+                <p class="verdict-word" id="verdict-word"></p>
+              </div>
+              <p class="verdict-line" id="verdict-line"></p>
+            </div>
+
+            <div class="when-row">
+              <p class="when"><span class="when-label">For a stay from</span> <strong id="when-time"></strong></p>
+              <button type="button" class="btn btn-small" id="now-btn" hidden>
+                <svg class="ico ico-sm" aria-hidden="true"><use href="#i-now"/></svg> Back to now
+              </button>
+            </div>
+
+            <div class="chips" role="group" aria-label="How long are you staying?">
+              <span class="chips-label" aria-hidden="true">Staying</span>
+              <button type="button" class="chip" data-chip="15m" aria-pressed="false">15 min</button>
+              <button type="button" class="chip" data-chip="1h" aria-pressed="true">1 h</button>
+              <button type="button" class="chip" data-chip="2h" aria-pressed="false">2 h</button>
+              <button type="button" class="chip" data-chip="4h" aria-pressed="false">4 h</button>
+              <button type="button" class="chip" data-chip="overnight" aria-pressed="false">Overnight</button>
+            </div>
+
+            <div class="side-q" id="side-q" hidden>
+              <p class="side-text" id="side-text">Facing the signs, is your car to the left or right of the pole?</p>
+              <div class="side-buttons" role="group" aria-labelledby="side-text">
+                <button type="button" class="side-btn" data-side="left" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg> Left</button>
+                <button type="button" class="side-btn" data-side="right" aria-pressed="false">Right <svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></button>
+              </div>
+            </div>
+
+            <section class="week" id="week" aria-labelledby="week-title">
+              <div class="week-head">
+                <h2 id="week-title">Your week at this pole</h2>
+                <p class="week-hint">Drag the line to any time. Tap a block to see why.</p>
+              </div>
+              <div class="grid-wrap" id="grid-wrap"></div>
+              <p class="grid-caption" id="grid-caption" aria-live="polite"></p>
+              <ul class="legend" aria-label="Legend">
+                <li><span class="sw sw-free"><svg aria-hidden="true"><use href="#i-check"/></svg></span>Free</li>
+                <li><span class="sw sw-limited"><svg aria-hidden="true"><use href="#i-clock"/></svg></span>Time limit or meter</li>
+                <li><span class="sw sw-no"><svg aria-hidden="true"><use href="#i-x"/></svg></span>Not allowed</li>
+                <li><span class="sw sw-unsure"><svg aria-hidden="true"><use href="#i-q"/></svg></span>Not sure</li>
+              </ul>
+              <p class="visually-hidden" id="week-text"></p>
+            </section>
+          </div>
+        </div>
+
+        <aside class="answer-side" aria-labelledby="cards-title">
+          <div class="signs-head">
+            <img id="answer-photo" class="answer-photo" alt="Your photo of the sign pole">
+            <div>
+              <h2 id="cards-title">Signs we read</h2>
+              <p class="signs-sub">Top of the pole first. Switch off any that look wrong.</p>
+            </div>
+          </div>
+          <ol class="cards" id="cards"></ol>
+          <button type="button" class="btn btn-ghost btn-wide" id="again-btn">
+            <svg class="ico" aria-hidden="true"><use href="#i-back"/></svg> Check another pole
+          </button>
+          <p class="disclaimer">A reading aid. Always double-check the sign.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Inspired by <a href="https://www.nikkisylianteng.com/parking" rel="noopener">Nikki Sylianteng's To Park or Not to Park</a>.</p>
+    <details class="credits">
+      <summary>Photo credits</summary>
+      <ul id="credit-list"></ul>
+    </details>
+    <p class="footer-small">Sample and test photos from Wikimedia Commons, used under their Creative Commons licenses. Made with Cloudflare Workers AI.</p>
+  </footer>
+
+  <script type="module" src="/js/app.js"></script>
 </body>
 </html>
