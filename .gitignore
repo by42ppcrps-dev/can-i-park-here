@@ -1,0 +1,13 @@
+# Personal learning context stays out of commits by default
+/devpost/learner-profile.md
+
+# Local credentials
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+
+# Tooling
+node_modules/
+.wrangler/
