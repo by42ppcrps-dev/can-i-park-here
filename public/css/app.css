@@ -255,7 +255,10 @@ input[type="file"]:focus-visible + .btn, .photo-actions input:focus-visible { ou
 .tline-handle {
   position: absolute; left: 50%; top: -15px; width: 30px; height: 26px; transform: translateX(-50%);
   background: var(--ink); color: #fff; border-radius: 8px; display: grid; place-items: center; box-shadow: 0 0 0 2px #fff;
+  pointer-events: auto; cursor: grab; touch-action: none;
 }
+.tline-handle::after { content: ""; position: absolute; inset: -12px -10px; }
+.grid.dragging .tline-handle { cursor: grabbing; transform: translateX(-50%) scale(1.12); }
 .tline-handle::before { content: ""; width: 12px; height: 8px; border-top: 2px solid #fff; border-bottom: 2px solid #fff; }
 .grid-focus { position: absolute; inset: 0; z-index: 6; border-radius: 6px; }
 .grid-body { position: relative; display: contents; }

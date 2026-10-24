@@ -4,7 +4,8 @@ import { shrinkPhoto, readPhoto, PhotoError } from "./photo.js";
 import { createCards } from "./cards.js";
 import { createVerdict } from "./verdict.js";
 import { buildWeek, verdict, minuteOfWeek, stayMinutesFor, formatBlockTime } from "./engine/rules.js";
-import { describeVerdict } from "./engine/describe.js";
+import { describeVerdict, describeBlock, describeWeek } from "./engine/describe.js";
+import { createGrid } from "./grid.js";
 
 const $ = (s) => document.querySelector(s);
 const SLOW_MS = 25000;
@@ -37,6 +38,10 @@ const cards = createCards($("#cards"), {
   },
 });
 const verdictView = createVerdict($("#verdict"));
+const grid = createGrid($("#grid-wrap"), {
+  onMove: (i) => setStart(i),
+  onSelect: (i) => select(state.selectedBlock === i ? null : i),
+});
 
 // Views
 function showView(name) {
@@ -173,8 +178,10 @@ function setStart(i) {
   state.startIndex = i;
   render();
 }
+let highlightScroll = false;
 function select(i) {
   state.selectedBlock = i;
+  highlightScroll = i !== null;
   render();
 }
 
@@ -183,10 +190,16 @@ function needsSide() {
 }
 
 let lastWeek = null;
+let weekFor = { signs: null, key: "", week: null };
 function render() {
   if (state.view !== "answer") return;
   const side = needsSide() ? state.side : null;
-  const week = buildWeek(state.signs, { enabled: state.enabled, side });
+  // The week only changes with the signs, the switches, or the side; reuse it while dragging.
+  const key = `${[...state.enabled].sort().join(",")}|${side}`;
+  if (state.signs !== weekFor.signs || key !== weekFor.key) {
+    weekFor = { signs: state.signs, key, week: buildWeek(state.signs, { enabled: state.enabled, side }) };
+  }
+  const week = weekFor.week;
   lastWeek = week;
   const none = state.enabled.size === 0;
   const stay = stayMinutesFor(state.chip, state.startIndex);
@@ -210,7 +223,13 @@ function render() {
 
   cards.render(state.signs, state.enabled);
   const selected = state.selectedBlock !== null ? week[state.selectedBlock] : null;
-  cards.highlight(selected ? selected.causes : [], false);
+  cards.highlight(selected ? selected.causes : [], highlightScroll);
+  highlightScroll = false;
+
+  grid.render({ week, startIndex: state.startIndex, stay, todayIndex: state.nowIndex, none, selected: state.selectedBlock });
+  $("#grid-caption").textContent = selected && !none ? describeBlock(selected, state.signs) : none ? "No signs switched on." : "";
+  const weekText = none ? "No signs switched on." : describeWeek(week);
+  if ($("#week-text").textContent !== weekText) $("#week-text").textContent = weekText;
 
   hooks.afterRender.forEach((f) => f({ week, verdict: v, stay, none, side }));
 }

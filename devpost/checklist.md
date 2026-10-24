@@ -31,7 +31,7 @@ Build mode: fast (Matt's standing choice, "every step verified and committed"; r
   Learner check: Upload a pole photo, switch one card off and on, change the stay chip, and watch the verdict change. Say whether you trust the answer and why.
   Commit: `Rules engine, sign cards, and the giant verdict`
 
-- [ ] **3. See the whole week and time travel through it**
+- [x] **3. See the whole week and time travel through it**
   Becomes usable: Under the verdict, a Mon to Sun week grid in 15-minute blocks (green, teal with labels, red, amber hatched) with a legend and a screen reader summary. A draggable time travel line (pointer and keyboard) with a stay bracket updates the verdict live; "Back to now" resets it. Tapping a block names the sign behind it and highlights its card.
   Why now: The "oh, that's cool" beat; it depends on the engine from slice 2 and is the main design surface.
   PRD ref: `prd.md > The Week Grid`, `prd.md > Time Travel`, `prd.md > Tap a Block to See Why`
@@ -112,3 +112,4 @@ Activity mode: not started
 - Conflicts are judged per sign. Rules on the same sign combine (a 2 hour limit plus "pay at meter" is one 2 hour metered block), and across signs only two different limits, or free versus paid, count as disagreeing. A "PAY AT METER" sign next to a "2 HOUR PARKING" sign is a normal pairing on real poles, and treating it as a conflict would make most metered poles Not sure.
 - The week grid draws each day as a column of positioned runs instead of a 7 by 96 CSS grid. Same look, fewer elements, and simpler drag math.
 - `compatibility_date` is 2026-10-13, the newest the local Wrangler runtime supports, so `npm run dev` works.
+- On touch screens the time travel line drags from its handle only, so swiping over the tall grid still scrolls the page; with a mouse it drags from anywhere on the grid. Taps on blocks explain them.
