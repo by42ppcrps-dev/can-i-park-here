@@ -76,3 +76,45 @@ Soft: the "now" list is ambitious for 2 to 4 hours (ten must-haves, including ar
 
 **Q. Does this look good, or would you change anything?**
 Answer: approved. Relayed by Matt's operator under the brief's instruction to build from these standing answers. Set `status: approved`.
+
+---
+
+## 3-prd
+
+**Where are we.** `learner-profile.md`, and `scope.md` with `status: approved`. No `prd.md`. Began fresh.
+
+**Frame.** Explained a PRD as the non-technical description of what the project does: what someone sees, does, and gets back. Still the smallest proof of concept.
+
+**Q1 (core journey, batch). In `scope.md > The Core Loop` you described snap, read, confirm, verdict, week. What should someone see first when they open it? And after the photo is read, what do they see before they get an answer?**
+Quoted (must-haves 1 to 3): "Take or upload a photo of a sign pole, or tap one of 3 sample poles (real CC-licensed photos from Wikimedia Commons, credited)." "'Reading signs' state with a scan animation over the photo." "Confirm step: show the signs the AI read as plain cards (sign text + rule it means). The user can switch off a card that's wrong before trusting the answer."
+Operator decision (Matt to review): one page with three views (start, reading, answer); the confirm step lives on the answer view so cards stay visible for tap-to-highlight and live switch changes. Start view layout and copy ("Snap the sign pole. Get one clear answer.") are operator decisions.
+
+**Q2 (design beat). If we leave visuals unspecified, the build tends toward generic AI-app styling. What should it look and feel like: type, colors, references?**
+Quoted: "Plain HTML/CSS/JS front end, no framework, mobile-first, big type, high contrast, accessible colors (do not rely on color alone: icons/labels too)." Week grid colors from must-have 5: "green (free), blue/teal (allowed with a time limit or meter, labeled), red (not allowed)." Reference: Nikki Sylianteng, credited, artwork not copied.
+Operator decision (Matt to review): amber hatched blocks for Not sure in the grid; sign-like white cards; a plain heavy sans serif; no gradients.
+
+**Q3 (behaviors and proof, batch). What does the answer say, exactly, and how would you know it's right? What does a stay length change?**
+Quoted (must-haves 4, 6, 8): "a giant verdict for the chosen time and stay length (e.g. green 'YES, until 4:00 PM' / red 'NO, street cleaning starts 8:30 AM' / amber 'NOT SURE: check sign 3')." "Stay length chips (15 min, 1 h, 2 h, 4 h, overnight). Verdict checks the whole stay." "Never a confident wrong YES: when uncertain, say Not sure."
+Operator decisions (Matt to review): stricter sign wins (allowed versus not allowed is a NO, not a Not sure, otherwise the brief's own "NO, street cleaning starts 8:30 AM" example could never happen on a metered block); NO beats NOT SURE; NOT SURE beats YES; "rules conflict" means two allowed rules disagreeing for the same hours; permit and commercial-only rules count as not allowed for an everyday driver; default stay 1 h; overnight ends 8:00 AM.
+
+**Q4 (week grid and time travel). When someone drags the line or taps a block, what exactly happens?**
+Quoted (must-have 5): "A draggable 'time travel' line; dragging updates the verdict live. Tapping a grid block shows which sign caused it (highlight that sign card)."
+Operator decisions (Matt to review): 15-minute drag steps, sideways drag changes day, stay bracket below the line, keyboard arrows, "Back to now", one generic week (dragging to Monday means the next Monday), hour labels every 2 hours.
+
+**Q5 (what-ifs, batch). What happens with an arrow sign, an unreadable sign, no signs at all, or a failed reading?**
+Quoted (must-have 7): "if signs have arrows, the user says which side of the pole the car is on; rules apply accordingly." (must-have 3): "Show 'Not sure' instead of guessing if a sign is unreadable or rules conflict."
+Operator decisions (Matt to review): left/right question wording and arrow meaning; until answered, arrowed hours are Not sure; "No parking signs found" state; failure message pointing to sample poles; all cards switched off shows no answer (not YES); 25 second "Still reading" message; nothing persists after refresh.
+
+**Q6 (accuracy card). What does "honest" look like on the accuracy card?**
+Quoted (must-have 9): "test on 20+ real sign photos with hand-checked answers; show true counts only." Plus: "No mention of who or what reviews or checks the work in public copy."
+Operator decision (Matt to review): 3 fixed test times per photo; counts shown as right, Not sure, wrong NO, wrong YES; test date shown; expected answers listed in the repo for Matt to look over before publishing.
+
+**Q7 (boundary).** No new scope surfaced. Card editing was the one tempting addition (implied by "switch off a card that's wrong"); deferred because switching off covers it. Operator decision (Matt to review). .ics stays deferred per the brief.
+
+**Explore more or review.** Readiness criteria met. Drafted `devpost/prd.md` with `status: draft` and saved it. Review format: markdown.
+
+**Feedback given at review.**
+Scope said "the verdict checks the whole stay"; now it is defined minute by minute, with exact precedence between YES, NO, and NOT SURE. The journey closes and every behavior has checkable criteria. The now/deferred split is firm. The biggest soft spot is how many product calls were operator decisions, especially the precedence rules in `prd.md > Never a Confident Wrong Yes`; those deserve Matt's eye first.
+
+**Q. Does this look good, or would you change anything?**
+Answer: approved. Relayed by Matt's operator. Set `status: approved`.
