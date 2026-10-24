@@ -72,8 +72,8 @@ function showReading(photoUrl) {
 }
 
 const PROBLEMS = {
-  no_signs: ["No parking signs found", "No parking signs found in this photo. Try again closer to the pole, or try a sample pole."],
-  read_failed: ["Couldn't read this photo", "Couldn't read this photo right now. Try again, or try a sample pole."],
+  no_signs: ["No signs found", "No parking signs found in this photo. Try again closer to the pole, or try a sample pole."],
+  read_failed: ["That didn't work", "Couldn't read this photo right now. Try again, or try a sample pole."],
   too_large: ["That photo is too large", "Try a smaller photo, or try a sample pole."],
 };
 
@@ -262,3 +262,126 @@ $("#now-btn").addEventListener("click", () => {
 });
 document.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => { state.chip = c.dataset.chip; render(); }));
 document.querySelectorAll(".side-btn").forEach((b) => b.addEventListener("click", () => { state.side = b.dataset.side; render(); }));
+
+// Start view: example week, sample poles, accuracy card, credits.
+function drawDemo() {
+  const host = $("#demo-grid");
+  if (!host) return;
+  const weekdays = ["mon", "tue", "wed", "thu", "fri", "sat"];
+  const example = [
+    { id: 1, readable: true, arrow: "none", rules: [{ kind: "no_parking", days: ["tue"], start: "08:30", end: "10:00", limitMinutes: null, metered: false, note: null, condition: null }] },
+    { id: 2, readable: true, arrow: "none", rules: [{ kind: "time_limit", days: weekdays, start: "10:00", end: "19:00", limitMinutes: 120, metered: false, note: null, condition: null }] },
+    { id: 3, readable: true, arrow: "none", rules: [{ kind: "no_standing", days: ["mon", "tue", "wed", "thu", "fri"], start: "16:00", end: "19:00", limitMinutes: null, metered: false, note: null, condition: null }] },
+  ];
+  const week = buildWeek(example, {});
+  const colors = { free: "var(--free)", limited: "var(--limited)", no: "var(--no)", unsure: "var(--unsure)" };
+  for (let d = 0; d < 7; d++) {
+    const col = document.createElement("div");
+    col.className = "demo-col";
+    let k = 0;
+    while (k < 96) {
+      const st = week[d * 96 + k].state;
+      let e = k;
+      while (e < 96 && week[d * 96 + e].state === st) e++;
+      if (st !== "free") {
+        const s = document.createElement("span");
+        s.style.top = `${(k / 96) * 100}%`;
+        s.style.height = `${((e - k) / 96) * 100}%`;
+        s.style.background = colors[st];
+        col.append(s);
+      }
+      k = e;
+    }
+    host.append(col);
+  }
+}
+
+function creditLine(c) {
+  const li = document.createElement("li");
+  const a = document.createElement("a");
+  a.href = c.page;
+  a.rel = "noopener";
+  a.textContent = c.title;
+  li.append(a, document.createTextNode(` by ${c.artist}, `));
+  const l = document.createElement("a");
+  l.href = c.licenseUrl;
+  l.rel = "noopener license";
+  l.textContent = c.license;
+  li.append(l, document.createTextNode(". Resized."));
+  return li;
+}
+
+async function loadSamples() {
+  const section = $(".samples");
+  let samples = [];
+  try {
+    const r = await fetch("/samples/credits.json");
+    if (r.ok) samples = await r.json();
+  } catch { /* no samples */ }
+  section.hidden = !samples.length;
+  const list = $("#sample-list");
+  list.replaceChildren();
+  for (const s of samples) {
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "sample";
+    btn.setAttribute("aria-label", `Sample pole: ${s.name}, ${s.place}`);
+    const img = document.createElement("img");
+    img.src = s.thumb || s.image;
+    img.alt = "";
+    img.loading = "lazy";
+    img.width = 300;
+    img.height = 400;
+    const body = document.createElement("span");
+    body.className = "sample-body";
+    const t = document.createElement("span");
+    t.className = "sample-title";
+    t.textContent = s.name;
+    const m = document.createElement("span");
+    m.className = "sample-meta";
+    m.textContent = `${s.place} · ${s.signCount} sign${s.signCount === 1 ? "" : "s"}`;
+    body.append(t, document.createElement("br"), m);
+    btn.append(img, body);
+    btn.addEventListener("click", () => startFromSample(s));
+    const credit = document.createElement("p");
+    credit.className = "sample-credit";
+    const a = document.createElement("a");
+    a.href = s.page;
+    a.rel = "noopener";
+    a.textContent = `Photo: ${s.artist}`;
+    credit.append(a, document.createTextNode(`, ${s.license}`));
+    li.append(btn, credit);
+    list.append(li);
+    $("#credit-list").append(creditLine(s));
+  }
+}
+
+async function loadAccuracy() {
+  try {
+    const r = await fetch("/data/accuracy.json");
+    if (!r.ok) return;
+    const a = await r.json();
+    const set = (k, v) => document.querySelectorAll(`[data-acc="${k}"]`).forEach((n) => { n.textContent = String(v); });
+    set("photos", a.photos);
+    set("checks", a.checks);
+    set("right", a.right);
+    set("unsure", a.unsure);
+    set("wrongNo", a.wrongNo);
+    set("wrongYes", a.wrongYes);
+    set("date", new Date(`${a.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }));
+    $("#accuracy").hidden = false;
+  } catch { /* the card stays hidden, never shown with made-up numbers */ }
+}
+
+$("#home-link").addEventListener("click", (e) => {
+  if (state.view === "start") return;
+  e.preventDefault();
+  controller?.abort();
+  clearTimers();
+  showView("start");
+});
+
+drawDemo();
+loadSamples();
+loadAccuracy();

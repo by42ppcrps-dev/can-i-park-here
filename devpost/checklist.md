@@ -41,7 +41,7 @@ Build mode: fast (Matt's standing choice, "every step verified and committed"; r
   Learner check: Drag the line across the week until the verdict flips, then tap a red block and see which sign lights up.
   Commit: `Week grid with time travel and tap to explain`
 
-- [ ] **4. It feels like a finished product**
+- [x] **4. It feels like a finished product**
   Becomes usable: A strong start view (wordmark logo, hero, promise, big photo buttons), the reading view with the scan animation and the 25 s "Still reading" message, every empty, error, and no-signs state from the PRD, disclaimer and privacy lines, favicon, social preview image, and a layout that works at 390 px and 1440 px.
   Why now: The hackathon is judged first on design. The behaviors exist; now every screen and state gets finished before real content (samples, accuracy) is dropped in.
   PRD ref: `prd.md > Screens and Layout`, `prd.md > Look and Feel`, `prd.md > States and Boundaries`, `prd.md > Disclaimer and Privacy`
