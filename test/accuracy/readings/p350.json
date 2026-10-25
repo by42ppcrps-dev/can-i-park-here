@@ -1,0 +1,44 @@
+{
+ "status": 200,
+ "wallMs": 3607,
+ "signs": [
+  {
+   "id": 1,
+   "text": "FREIGHT LOADING ZONE 7A.M.-6P.M. EXCEPT SUNDAY & HOLIDAY",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "commercial_only",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+     ],
+     "start": "07:00",
+     "end": "18:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 3555,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 126,
+  "total_tokens": 2848,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 76.5490951538086
+ },
+ "readAt": "2026-10-25T00:06:01.287Z"
+}

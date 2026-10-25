@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 3102,
+ "signs": [
+  {
+   "id": 1,
+   "text": "WELCOME PISMO BEACH PUBLIC PARKING PAY TO PARK 10AM-6PM DAILY PLEASE PAY AT PAY STATION",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "meter",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "10:00",
+     "end": "18:00",
+     "limitMinutes": null,
+     "metered": true,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 3039,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 133,
+  "total_tokens": 2855,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 77.09000396728516
+ },
+ "readAt": "2026-10-25T00:05:30.586Z"
+}

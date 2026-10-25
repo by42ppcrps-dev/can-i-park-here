@@ -1,5 +1,5 @@
 // Posts one photo to a running /api/read and prints the checked reading.
-// Usage: node scripts/post-photo.mjs <photo.jpg> [base url]
+// Usage: node scripts/lib/post-photo.mjs <photo.jpg> [base url]
 import { readFile } from "node:fs/promises";
 
 export async function postPhoto(path, base = "https://can-i-park-here.lumegridai.workers.dev") {

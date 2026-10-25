@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 2710,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 2627,
+ "usage": {
+  "prompt_tokens": 3302,
+  "completion_tokens": 121,
+  "total_tokens": 3423,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 90.39909362792969
+ },
+ "readAt": "2026-10-25T00:05:53.898Z"
+}

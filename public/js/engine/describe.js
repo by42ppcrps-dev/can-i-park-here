@@ -103,6 +103,7 @@ export function describeVerdict(v, signs, startIndex) {
   if (v.result === "unsure") {
     let line;
     if (v.reasons.includes("side") && v.reasons.length === 1) line = "NOT SURE: which side is your car on?";
+    else if (v.reasons.includes("away") && v.reasons.length === 1) line = `NOT SURE: check the arrow on ${signList(v.causes)}`;
     else if (v.reasons.includes("conflict") && v.causes.length > 1) line = `NOT SURE: ${signList(v.causes)} disagree`;
     else line = `NOT SURE: check ${signList(v.causes)}`;
     return { word: "NOT SURE", line, tone: "unsure" };
@@ -134,6 +135,9 @@ export function describeBlock(block, signs) {
       const rule = describeRule(s.rules[ref ? ref[1] : 0]);
       if (block.reasons.includes("side") && (s.arrow === "left" || s.arrow === "right")) {
         return `Sign ${id}: ${rule}. It points ${s.arrow}, so it depends on which side your car is on.`;
+      }
+      if (block.reasons.includes("away") && (s.arrow === "left" || s.arrow === "right")) {
+        return `Sign ${id}: ${rule}. We read its arrow as pointing ${s.arrow}, away from your car, but arrows are easy to misread. Check the arrow, and switch this sign off if it doesn't apply to you.`;
       }
       return `Sign ${id}: ${rule}. The app can't tell if that applies right now.`;
     }).join(" ");

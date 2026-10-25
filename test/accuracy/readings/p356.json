@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 3748,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING LOADING ZONE",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": "loading zone",
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 3714,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 127,
+  "total_tokens": 2849,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 76.6263656616211
+ },
+ "readAt": "2026-10-25T00:05:10.588Z"
+}

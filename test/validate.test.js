@@ -139,6 +139,9 @@ test("a condition in the text is added when the model dropped it", () => {
   assert.equal(r.signs[0].rules[0].condition, "when it snows");
   assert.equal(r.signs[1].rules[0].condition, "only some months of the year");
   assert.equal(r.signs[2].rules[0].condition, null);
+  // Temporary construction rules are in force, so they stay certain.
+  const c = validateReading({ signs: [{ text: "NO STANDING ANYTIME TEMPORARY CONSTRUCTION REGULATION", arrow: "both", readable: true, rules: [{ kind: "no_standing", days: ["mon"], start: "00:00", end: "24:00" }] }] });
+  assert.equal(c.signs[0].rules[0].condition, null);
 });
 
 test("conditions are kept so the engine can treat them as Not sure", () => {
@@ -146,4 +149,18 @@ test("conditions are kept so the engine can treat them as Not sure", () => {
     signs: [{ text: "NO PARKING WHEN SNOW", arrow: "none", readable: true, rules: [{ kind: "no_parking", days: ["mon"], start: "00:00", end: "24:00", condition: "when snow is over 2 inches" }] }],
   });
   assert.equal(r.signs[0].rules[0].condition, "when snow is over 2 inches");
+});
+
+test("ruleless exemption panels are left out; other ruleless signs stay Not sure", () => {
+  const r = validateReading({
+    signs: [
+      { text: "NO STANDING ANYTIME", arrow: "both", readable: true, rules: [{ kind: "no_standing", days: ["mon"], start: "00:00", end: "24:00" }] },
+      { text: "EXCEPT WTC CONSTRUCTION VEHICLES", arrow: "none", readable: true, rules: [] },
+      { text: "EXCEPTÉ VÉHICULES MUNIS D'UN PERMIS", arrow: "none", readable: true, rules: [] },
+      { text: "SUBJECT TO SURGE PRICING", arrow: "none", readable: true, rules: [] },
+    ],
+  });
+  assert.deepEqual(r.signs.map((s) => s.text), ["NO STANDING ANYTIME", "SUBJECT TO SURGE PRICING"]);
+  assert.deepEqual(r.signs.map((s) => s.id), [1, 2]);
+  assert.equal(r.signs[1].readable, false);
 });

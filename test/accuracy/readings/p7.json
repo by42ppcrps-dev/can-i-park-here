@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 3303,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING FIRE LANE NO STOPPING PUT TRASH IN ITS PLACE CLEAN UP AFTER YOUR DOG PONGALA BASURA EN SU LUGAR LIMPIEZA TRAS SU PERRO",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": "fire lane",
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 3219,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 162,
+  "total_tokens": 2884,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 79.3309097290039
+ },
+ "readAt": "2026-10-25T00:05:13.897Z"
+}

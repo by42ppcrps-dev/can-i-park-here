@@ -1,0 +1,26 @@
+{
+ "status": 200,
+ "wallMs": 5236,
+ "signs": [
+  {
+   "id": 1,
+   "text": "CUBS' NIGHT GAMES PERMIT PARKING 5PM-10PM EXCEPT WITH PERMIT LV2 TOW ZONE",
+   "readable": false,
+   "arrow": "none",
+   "problem": "days are missing or unclear",
+   "rules": []
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 5148,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 117,
+  "total_tokens": 2839,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 75.8536376953125
+ },
+ "readAt": "2026-10-25T00:05:24.955Z"
+}

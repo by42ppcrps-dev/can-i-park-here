@@ -1,0 +1,107 @@
+{
+ "status": 200,
+ "wallMs": 11267,
+ "signs": [
+  {
+   "id": 1,
+   "text": "TOW ZONE",
+   "readable": true,
+   "arrow": "right",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": "tow away",
+     "condition": null
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "PAY AT PAY BOX OR SIGN UP AT ParkChicago.com FOR MOBILE PAY ZONE 437 218",
+   "readable": true,
+   "arrow": "right",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "meter",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": true,
+     "note": null,
+     "condition": null
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "text": "PAY TO PARK AT PAY BOX OR SIGN UP AT ParkChicago.com FOR MOBILE PAY ZONE 437 218",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "meter",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": true,
+     "note": null,
+     "condition": null
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "text": "THIS ZONE IS SUBJECT TO SURGE PRICING AND HOURS ON STADIUM EVENT DAYS. FOR INFO: CALL 311 OR VISIT CHICAGOMETERS.COM",
+   "readable": false,
+   "arrow": "none",
+   "problem": "no parking rule found on this sign",
+   "rules": []
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 11190,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 452,
+  "total_tokens": 3174,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 101.74000549316406
+ },
+ "readAt": "2026-10-25T00:04:49.785Z"
+}

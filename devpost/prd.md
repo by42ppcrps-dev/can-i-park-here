@@ -88,7 +88,7 @@ Source: `scope.md > The POC Boundary` (arrow side).
 - As a driver parked next to a pole with arrows, I want to say which side my car is on so that only the signs for my side apply.
   - [ ] When any switched-on sign has a left or right arrow, the question "Facing the signs, is your car to the left or right of the pole?" appears with two big buttons (Left, Right), each with an arrow icon.
   - [ ] Until answered, any time covered by an arrowed sign shows Not sure, and the verdict says "NOT SURE: which side is your car on?" if it matters for the stay.
-  - [ ] Once answered, a sign pointing left applies only to the left side, a sign pointing right only to the right; double arrows and no arrow apply to both sides.
+  - [ ] Once answered, a sign pointing toward the car's side applies; double arrows and no arrow apply to both sides. A sign pointing away from the car's side shows as Not sure ("NOT SURE: check the arrow on sign 2"), not ignored, because the reader often gets arrow direction wrong; the driver checks the arrow and switches the sign off if it doesn't apply. (Revised in 5-build after the live reader reversed 4 of 4 arrows; operator decision, Matt to review.)
   - [ ] The answer can be changed at any time and the result updates immediately.
   - Arrow meaning (operator decision, Matt to review): the arrow points along the curb to the stretch of street the sign covers, as seen when facing the sign.
 

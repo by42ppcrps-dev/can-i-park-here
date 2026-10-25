@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 2799,
+ "signs": [
+  {
+   "id": 1,
+   "text": "24 HOUR PARKING MAXIMUM STRICTLY ENFORCED VEHICLES EXCEEDING THE 24-HOUR LIMIT WILL BE TOWED",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": 1440,
+     "metered": false,
+     "note": "tow away",
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 2762,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 151,
+  "total_tokens": 2873,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 78.48091125488281
+ },
+ "readAt": "2026-10-25T00:05:41.456Z"
+}

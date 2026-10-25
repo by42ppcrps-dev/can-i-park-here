@@ -1,0 +1,44 @@
+[
+ {
+  "id": "p291",
+  "image": "/samples/p291.jpg",
+  "thumb": "/samples/p291-thumb.jpg",
+  "reading": "/samples/p291.json",
+  "signCount": 1,
+  "title": "SF parking sign",
+  "artist": "Mrbeastmodeallday",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:SF_parking_sign.jpg",
+  "name": "Two hour zone",
+  "place": "San Francisco"
+ },
+ {
+  "id": "p241",
+  "image": "/samples/p241.jpg",
+  "thumb": "/samples/p241-thumb.jpg",
+  "reading": "/samples/p241.json",
+  "signCount": 1,
+  "title": "Two \"right lane buses only\" signs - Chicago, IL - December 2021",
+  "artist": "AlphaBeta135",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Two_%22right_lane_buses_only%22_signs_-_Chicago,_IL_-_December_2021.jpg",
+  "name": "Bus lane pole",
+  "place": "Chicago"
+ },
+ {
+  "id": "p356",
+  "image": "/samples/p356.jpg",
+  "thumb": "/samples/p356-thumb.jpg",
+  "reading": "/samples/p356.json",
+  "signCount": 1,
+  "title": "One-way and loading zone signs in Kent, Washington",
+  "artist": "Roc0ast3r",
+  "license": "CC0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:One-way_and_loading_zone_signs_in_Kent,_Washington.jpg",
+  "name": "Alley loading zone",
+  "place": "Kent, WA"
+ }
+]

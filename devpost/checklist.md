@@ -51,7 +51,7 @@ Build mode: fast (Matt's standing choice, "every step verified and committed"; r
   Learner check: Open the live URL on your phone and on a laptop; go through start, reading, and answer, and try a non-photo file. Say what feels unfinished.
   Commit: `Finished design: brand, states, responsive layout`
 
-- [ ] **5. Three real sample poles answer instantly**
+- [x] **5. Three real sample poles answer instantly**
   Becomes usable: The start view shows three credited Wikimedia Commons sample poles; tapping one shows the scan, then the saved real reading in under 2 seconds with no AI call.
   Why now: Needs the ground truth file to pick poles the model reads correctly, and the finished design to drop into. Makes the demo instant and free.
   PRD ref: `prd.md > Getting a Photo In`
@@ -113,3 +113,7 @@ Activity mode: not started
 - The week grid draws each day as a column of positioned runs instead of a 7 by 96 CSS grid. Same look, fewer elements, and simpler drag math.
 - `compatibility_date` is 2026-10-13, the newest the local Wrangler runtime supports, so `npm run dev` works.
 - On touch screens the time travel line drags from its handle only, so swiping over the tall grid still scrolls the page; with a mouse it drags from anywhere on the grid. Taps on blocks explain them.
+- A sign whose arrow points away from the car's side is now Not sure ("check the arrow on sign 2") instead of ignored; the driver can switch it off after checking. The live reader reversed 4 of 4 arrows it saw (p23, p355 read as right; p110, p329 double arrows read as single), and a reversed arrow on an ignored sign would be a confident wrong YES. Changes `prd.md > Which Side of the Pole`; operator decision, Matt to review.
+- Prompt: skip angle parking and exemption panels, judge arrows by the arrowhead, accept French text. The validator leaves out ruleless panels starting with EXCEPT (they only loosen rules for some vehicles) and no longer treats "construction" as a condition (temporary construction rules are in force). Made after reading the ground truth and before the accuracy run; disclosed in `test/accuracy/report.md`.
+- Sample poles are p291 (San Francisco, 2 hour zone), p241 (Chicago, bus lane pole), p356 (Kent, WA, loading zone): the multi-sign photos the model read exactly right. The higher demo quality poles (p329 Quebec, p355 New Orleans, p23 Chicago) matched on verdicts but had visible misreads (a 9 to 12 and 1:30 to 5 window read as 9 to 5; reversed arrows), so they were not used. Each sample uses one cached live reading shared with the accuracy run, so the quota was spent once per photo.
+- The ground truth set has 26 photos (the labeler's strict legibility rule), not about 30; all 26 are in the accuracy run.

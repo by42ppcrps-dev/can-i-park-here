@@ -1,0 +1,17 @@
+{
+ "status": 200,
+ "wallMs": 538,
+ "signs": [],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 490,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 7,
+  "total_tokens": 2729,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 67.3536376953125
+ },
+ "readAt": "2026-10-25T00:05:51.185Z"
+}

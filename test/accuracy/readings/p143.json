@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 2388,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING FOR MORE THAN 2 HRS DAY OF ECLIPSE",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": 120,
+     "metered": false,
+     "note": null,
+     "condition": "day of eclipse"
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 2323,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 85,
+  "total_tokens": 2807,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 73.38091278076172
+ },
+ "readAt": "2026-10-25T00:05:43.848Z"
+}

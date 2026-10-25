@@ -1,0 +1,86 @@
+{
+ "status": 200,
+ "wallMs": 8987,
+ "signs": [
+  {
+   "id": 1,
+   "text": "DANS CETTE RUE 23H - 6H30 LORSQUE LE FEU CLIGNOTE DENEIGEMENT ET ENTRETIEN REMORQUAGE INFORMATION 514-6566",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "23:00",
+     "end": "06:30",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": "only under a condition on the sign"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "P 60 min 9h-12h 13h30-17h LUN à VEN",
+   "readable": true,
+   "arrow": "both",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+     ],
+     "start": "09:00",
+     "end": "17:00",
+     "limitMinutes": 60,
+     "metered": false,
+     "note": null,
+     "condition": null
+    },
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+     ],
+     "start": "09:00",
+     "end": "12:00",
+     "limitMinutes": 60,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 8810,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 353,
+  "total_tokens": 3075,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 94.09000396728516
+ },
+ "readAt": "2026-10-25T00:04:38.509Z"
+}

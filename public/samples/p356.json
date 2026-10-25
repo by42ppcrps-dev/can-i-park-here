@@ -1,0 +1,34 @@
+{
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING LOADING ZONE",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": "loading zone",
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "readAt": "2026-10-25T00:05:10.588Z",
+ "source": "Saved live reading, not edited"
+}

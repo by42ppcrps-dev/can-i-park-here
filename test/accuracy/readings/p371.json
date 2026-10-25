@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 3775,
+ "signs": [
+  {
+   "id": 1,
+   "text": "CARPOOLING & BUS PASSENGERS ONLY NO VEHICLE STORAGE NO CAMPERS NO BOX TRUCKS VIOLATORS ASSUME ALL RELATED EXPENSES 21 DAY MAXIMUM",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "other_restricted",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 3726,
+ "usage": {
+  "prompt_tokens": 3302,
+  "completion_tokens": 156,
+  "total_tokens": 3458,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 93.1036376953125
+ },
+ "readAt": "2026-10-25T00:05:57.677Z"
+}

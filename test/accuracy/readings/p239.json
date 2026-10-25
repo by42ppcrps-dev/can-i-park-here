@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 2515,
+ "signs": [
+  {
+   "id": 1,
+   "text": "PAY TO PARK",
+   "readable": true,
+   "arrow": "left",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "meter",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": true,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 2444,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 119,
+  "total_tokens": 2841,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 76.00818634033203
+ },
+ "readAt": "2026-10-25T00:05:27.475Z"
+}

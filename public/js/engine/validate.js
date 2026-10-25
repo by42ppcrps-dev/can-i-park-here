@@ -186,9 +186,8 @@ const CONDITIONS = [
   [/\bSCHOOL/i, "on school days"],
   [/\b(EVENTS?|GAME DAYS?|STADIUM)\b/i, "during events"],
   [/\bEMERGENC/i, "during emergencies"],
-  [/\bCONSTRUCTION\b/i, "during construction"],
   [/\bSEASONAL\b/i, "only some months of the year"],
-  [/\bWHEN\b/i, "only under a condition on the sign"],
+  [/\b(WHEN|LORSQUE)\b/i, "only under a condition on the sign"],
 ];
 
 export function conditionHint(text) {
@@ -207,6 +206,10 @@ export function validateReading(raw) {
   const kept = data.signs
     .slice(0, MAX_SIGNS)
     .filter((s) => !(s && typeof s === "object" && !cleanText(s.text, 300) && !(Array.isArray(s.rules) && s.rules.length)));
-  const signs = kept.map((s, i) => validateSign(s, i));
+  // Exemption panels ("EXCEPT VEHICLES WITH PERMITS") only loosen a rule for some
+  // vehicles, never for an everyday driver, so a ruleless one is safe to leave out.
+  const signs = kept
+    .filter((s) => !(s && typeof s === "object" && /^\s*EXCEPT/i.test(cleanText(s.text, 300)) && !(Array.isArray(s.rules) && s.rules.length)))
+    .map((s, i) => validateSign(s, i));
   return { ok: true, signs };
 }

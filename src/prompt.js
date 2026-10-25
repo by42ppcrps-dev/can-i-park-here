@@ -7,10 +7,12 @@ Your only job is to transcribe the signs and turn each one into structured rules
 List every parking, stopping, or standing sign on the pole, from the top of the pole to the bottom.
 Skip signs that are not about parking (street names, one way, speed limits, business signs).
 Skip signs that are not mounted on the main pole in the foreground (signs far down the street, on buildings, or in the background).
+Skip signs that only say how to park (for example PARK AT 90 DEGREES) and panels that only list who is exempt (for example EXCEPT VEHICLES WITH PERMITS); they never restrict an everyday driver.
+Signs may be in English or French; always copy the text exactly as printed.
 
 For each sign:
 - "text": copy the exact words on the sign, in capitals, including times and days.
-- "arrow": the arrow printed on the sign: "left", "right", "both" (double headed), or "none".
+- "arrow": the arrow printed on the sign, judged by its arrowhead (the pointed tip) as you see it in the photo. If the tip is at the left end of the arrow, "left". If the tip is at the right end, "right". Tips at both ends, "both". No arrow, or an arrow pointing up or down, "none". Look carefully: a wrong arrow puts the rule on the wrong side of the pole.
 - "readable": true only if you can read every word and number that matters. If any time, day, or limit is blurry, cut off, or a guess, set false and say why in "problem".
 - "rules": one rule per restriction on the sign. Each rule has:
   - "kind", exactly one of:

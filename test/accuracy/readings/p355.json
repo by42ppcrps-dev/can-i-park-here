@@ -1,0 +1,72 @@
+{
+ "status": 200,
+ "wallMs": 5422,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING FREIGHT ZONE 24 HOURS",
+   "readable": true,
+   "arrow": "right",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "MUSICIAN LOADING ZONE",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "other_restricted",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 5354,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 247,
+  "total_tokens": 2969,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 85.89909362792969
+ },
+ "readAt": "2026-10-25T00:05:00.367Z"
+}

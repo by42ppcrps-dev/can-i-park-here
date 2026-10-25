@@ -1,0 +1,45 @@
+{
+ "status": 200,
+ "wallMs": 2013,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO STANDING Anytime",
+   "readable": true,
+   "arrow": "both",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_standing",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 1961,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 65,
+  "total_tokens": 2787,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 71.83545684814453
+ },
+ "readAt": "2026-10-25T00:05:38.653Z"
+}

@@ -142,7 +142,7 @@ test("conditional rules (snow, months, school days) are Not sure, never NO or YE
   assert.ok(w.every((b) => b.state === "unsure" && b.reasons.includes("condition")));
 });
 
-test("arrows: unknown side is Not sure; the matching side applies; the other side is ignored", () => {
+test("arrows: unknown side is Not sure; the matching side applies; a sign pointing away is Not sure, never ignored", () => {
   const s = signs(
     { text: "NO PARKING ANYTIME", arrow: "left", rules: [rule("no_parking", ALL, "00:00", "24:00")] },
     { text: "2 HOUR PARKING", arrow: "right", rules: [rule("time_limit", ALL, "08:00", "18:00", { limitMinutes: 120 })] },
@@ -154,10 +154,26 @@ test("arrows: unknown side is Not sure; the matching side applies; the other sid
 
   const left = buildWeek(s, { side: "left" });
   assert.equal(left[at("mon", 9, 0)].state, "no");
+  assert.equal(left[at("mon", 20, 0)].state, "no");
 
+  // The no parking sign points left, away from a car on the right: Not sure, not YES.
   const right = buildWeek(s, { side: "right" });
-  assert.equal(right[at("mon", 9, 0)].state, "limited");
-  assert.equal(right[at("mon", 20, 0)].state, "free");
+  assert.equal(right[at("mon", 9, 0)].state, "unsure");
+  assert.deepEqual(right[at("mon", 9, 0)].reasons, ["away"]);
+  assert.equal(verdict(right, at("mon", 20, 0), 60).result, "unsure");
+
+  // After the driver checks the arrow and switches that sign off, the right side is clear.
+  const checked = buildWeek(s, { side: "right", enabled: new Set([2]) });
+  assert.equal(checked[at("mon", 9, 0)].state, "limited");
+  assert.equal(checked[at("mon", 20, 0)].state, "free");
+});
+
+test("a misread arrow can never turn a restriction into YES", () => {
+  const s = signs({ text: "NO PARKING FREIGHT ZONE 24 HOURS", arrow: "right", rules: [rule("no_parking", ALL, "00:00", "24:00")] });
+  for (const side of [null, "left", "right"]) {
+    const w = buildWeek(s, { side });
+    for (let i = 0; i < WEEK; i += 7) assert.notEqual(verdict(w, i, 60).result, "yes");
+  }
 });
 
 test("double arrows and no arrow apply to both sides", () => {

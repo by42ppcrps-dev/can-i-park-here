@@ -42,8 +42,9 @@ export function buildWeek(signs, { enabled, side = null } = {}) {
 
   for (const sign of signs) {
     if (!isEnabled(enabled, sign.id)) continue;
+    // Arrows are easy to misread, so a sign pointing away from the car's side is
+    // Not sure, never silently ignored. The driver can switch it off after checking.
     const applies = appliesToSide(sign, side);
-    if (applies === "no") continue;
 
     if (!sign.readable) {
       // Unknown times cover the whole week until the sign is switched off.
@@ -57,6 +58,9 @@ export function buildWeek(signs, { enabled, side = null } = {}) {
       if (applies === "maybe") {
         bucket = "unsure";
         reason = "side";
+      } else if (applies === "no") {
+        bucket = "unsure";
+        reason = "away";
       } else if (rule.condition) {
         bucket = "unsure";
         reason = "condition";

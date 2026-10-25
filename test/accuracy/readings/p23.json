@@ -1,0 +1,65 @@
+{
+ "status": 200,
+ "wallMs": 5146,
+ "signs": [
+  {
+   "id": 1,
+   "text": "STREET CLEANING NO PARKING 7 AM - 9 AM FRIDAYS APRIL 1 - OCT 31 TOW ZONE",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "fri"
+     ],
+     "start": "07:00",
+     "end": "09:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": "street cleaning",
+     "condition": "only some months of the year"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "TWO HOUR PARKING 9AM-10PM MON-SAT",
+   "readable": true,
+   "arrow": "right",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+     ],
+     "start": "09:00",
+     "end": "22:00",
+     "limitMinutes": 120,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 5110,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 248,
+  "total_tokens": 2970,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 85.97636413574219
+ },
+ "readAt": "2026-10-25T00:04:54.939Z"
+}

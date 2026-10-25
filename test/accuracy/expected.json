@@ -1,0 +1,861 @@
+{
+ "stayMinutes": 60,
+ "testTimes": [
+  {
+   "label": "Mon 9:00 AM",
+   "day": "mon",
+   "time": "09:00"
+  },
+  {
+   "label": "Tue 8:45 AM",
+   "day": "tue",
+   "time": "08:45"
+  },
+  {
+   "label": "Sat 2:00 PM",
+   "day": "sat",
+   "time": "14:00"
+  },
+  {
+   "label": "Sun 3:00 AM",
+   "day": "sun",
+   "time": "03:00"
+  }
+ ],
+ "photos": [
+  {
+   "file": "p329.jpg",
+   "side": null,
+   "note": "The signal light and the snow ban are one rule that applies only when the light flashes, so it is Not sure overnight. The zone 22 permit panel only exempts permit holders.",
+   "signs": [
+    {
+     "text": "NO PARKING 23H - 6H30 LORSQUE LE FEU CLIGNOTE",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "23:00",
+       "end": "06:30",
+       "limitMinutes": null,
+       "note": "snow removal",
+       "condition": "when the light flashes"
+      }
+     ]
+    },
+    {
+     "text": "P 60 MIN 9H - 12H 13H30 - 17H LUN A VEN",
+     "arrow": "both",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+       ],
+       "start": "09:00",
+       "end": "12:00",
+       "limitMinutes": 60,
+       "note": null,
+       "condition": null
+      },
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+       ],
+       "start": "13:30",
+       "end": "17:00",
+       "limitMinutes": 60,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p238.jpg",
+   "side": "left",
+   "note": "Car on the left of the right-hand pole (the pay box side). No hours are printed, so paid parking all week. The surge pricing notices change prices, not permission.",
+   "signs": [
+    {
+     "text": "PAY AT PAY BOX",
+     "arrow": "left",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "meter",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "TOW ZONE",
+     "arrow": "right",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": "tow zone",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p23.jpg",
+   "side": "left",
+   "note": "Car on the left, the side the 2 hour sign covers.",
+   "signs": [
+    {
+     "text": "STREET CLEANING NO PARKING 7AM-9AM FRIDAYS APRIL 1-OCT 31",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "fri"
+       ],
+       "start": "07:00",
+       "end": "09:00",
+       "limitMinutes": null,
+       "note": "street cleaning",
+       "condition": "only some months of the year"
+      }
+     ]
+    },
+    {
+     "text": "TWO HOUR PARKING 9AM-10PM MON-SAT",
+     "arrow": "left",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat"
+       ],
+       "start": "09:00",
+       "end": "22:00",
+       "limitMinutes": 120,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p355.jpg",
+   "side": "left",
+   "note": "Car on the left, the freight zone side.",
+   "signs": [
+    {
+     "text": "NO PARKING FREIGHT ZONE 24 HOURS",
+     "arrow": "left",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": "freight zone",
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "MUSICIAN LOADING ZONE",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "other_restricted",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": "musician loading",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p110.jpg",
+   "side": null,
+   "note": "The WTC panel only exempts construction vehicles.",
+   "signs": [
+    {
+     "text": "NO STANDING ANYTIME TEMPORARY CONSTRUCTION REGULATION",
+     "arrow": "both",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_standing",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p241.jpg",
+   "side": null,
+   "note": "Bus lane signs are not parking rules.",
+   "signs": [
+    {
+     "text": "NO PARKING ANY TIME",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p356.jpg",
+   "side": null,
+   "note": "One way sign is not a parking rule.",
+   "signs": [
+    {
+     "text": "NO PARKING LOADING ZONE",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": "loading zone",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p7.jpg",
+   "side": null,
+   "note": "Homemade sign, read as written.",
+   "signs": [
+    {
+     "text": "NO PARKING FIRE LANE NO STOPPING",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_stopping",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": "fire lane",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p291.jpg",
+   "side": null,
+   "note": "Park at 90 degrees is how to park, not a rule.",
+   "signs": [
+    {
+     "text": "2 HOUR PARKING 8AM TO 9PM MON THRU SAT EXCEPT AREA A PERMITS",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat"
+       ],
+       "start": "08:00",
+       "end": "21:00",
+       "limitMinutes": 120,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p53.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "NO PUBLIC PARKING",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "other_restricted",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": "private",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p167.jpg",
+   "side": null,
+   "note": "Only on game nights, so Not sure 5 to 10 PM; none of the test times fall there.",
+   "signs": [
+    {
+     "text": "CUBS NIGHT GAMES PERMIT PARKING 5PM-10PM EXCEPT WITH PERMIT LV2",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "permit_only",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "17:00",
+       "end": "22:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": "on night game days"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p239.jpg",
+   "side": null,
+   "note": "No hours printed, so paid parking all week.",
+   "signs": [
+    {
+     "text": "PAY TO PARK",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "meter",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p185.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "PUBLIC PARKING PAY TO PARK 10AM-6PM DAILY",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "meter",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "10:00",
+       "end": "18:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p237.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "NO PARKING NO DUMPING",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p297.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "NO PARKING AT ANY TIME",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p95.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "NO STANDING ANYTIME",
+     "arrow": "both",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_standing",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p134.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "24 HOUR PARKING MAXIMUM",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": 1440,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p143.jpg",
+   "side": null,
+   "note": "Applies only on one day the app cannot know, so Not sure.",
+   "signs": [
+    {
+     "text": "NO PARKING FOR MORE THAN 2 HRS DAY OF ECLIPSE",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": 120,
+       "note": null,
+       "condition": "on the day of the eclipse"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p289.jpg",
+   "side": null,
+   "note": "No TNC parking only restricts ride hail cars, so nothing limits an everyday driver. Best possible app result: YES or no signs found.",
+   "signs": []
+  },
+  {
+   "file": "p224.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "WARNING UNAUTHORIZED VEHICLES WILL BE RELOCATED",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "other_restricted",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": "private lot",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p69.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "2 HOUR PARKING 9AM TO 6PM MONDAY - FRIDAY",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+       ],
+       "start": "09:00",
+       "end": "18:00",
+       "limitMinutes": 120,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p294.jpg",
+   "side": null,
+   "note": "Park at 90 degrees is how to park, not a rule. Best possible app result: YES or no signs found.",
+   "signs": []
+  },
+  {
+   "file": "p288.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "NO PARKING",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p371.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "PARK AND RIDE CARPOOLING AND BUS PASSENGERS ONLY",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "other_restricted",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": "carpool and bus riders",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p350.jpg",
+   "side": null,
+   "note": "",
+   "signs": [
+    {
+     "text": "FREIGHT LOADING ZONE 7AM-6PM EXCEPT SUNDAY AND HOLIDAY",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "commercial_only",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat"
+       ],
+       "start": "07:00",
+       "end": "18:00",
+       "limitMinutes": null,
+       "note": "freight loading",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "p280.jpg",
+   "side": null,
+   "note": "Private lot open to the public weekday evenings 5 PM to sunset and weekends sunrise to sunset. Sunset and sunrise are not fixed times, so the expected verdicts are written directly.",
+   "verdicts": [
+    "no",
+    "no",
+    "yes",
+    "no"
+   ]
+  }
+ ]
+}

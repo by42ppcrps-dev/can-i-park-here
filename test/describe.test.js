@@ -55,6 +55,7 @@ test("NOT SURE lines name the sign, the side, or the disagreement", () => {
 
   const arrowed = signs({ arrow: "left", rules: [rule("no_parking", DAYS, "00:00", "24:00")] });
   assert.equal(describeVerdict(verdict(buildWeek(arrowed), 0, 60), arrowed, 0).line, "NOT SURE: which side is your car on?");
+  assert.equal(describeVerdict(verdict(buildWeek(arrowed, { side: "right" }), 0, 60), arrowed, 0).line, "NOT SURE: check the arrow on sign 1");
 
   const clash = signs(
     { rules: [rule("time_limit", ["mon"], "08:00", "18:00", { limitMinutes: 60 })] },

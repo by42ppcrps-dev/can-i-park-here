@@ -1,0 +1,43 @@
+{
+ "status": 200,
+ "wallMs": 2910,
+ "signs": [
+  {
+   "id": 1,
+   "text": "2 HOUR PARKING 9A.M. TO 6 P.M. MONDAY - FRIDAY",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+     ],
+     "start": "09:00",
+     "end": "18:00",
+     "limitMinutes": 120,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 2834,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 131,
+  "total_tokens": 2853,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 76.93545532226562
+ },
+ "readAt": "2026-10-25T00:05:50.643Z"
+}

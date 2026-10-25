@@ -1,0 +1,33 @@
+{
+ "signs": [
+  {
+   "id": 1,
+   "text": "2 HOUR PARKING 8A.M. TO 9 P.M. MON THRU SAT EXCEPT VEHICLES WITH AREA A PERMITS",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+     ],
+     "start": "08:00",
+     "end": "21:00",
+     "limitMinutes": 120,
+     "metered": false,
+     "note": null,
+     "condition": null
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "readAt": "2026-10-25T00:05:16.919Z",
+ "source": "Saved live reading, not edited"
+}

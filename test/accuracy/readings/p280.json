@@ -1,0 +1,26 @@
+{
+ "status": 200,
+ "wallMs": 5040,
+ "signs": [
+  {
+   "id": 1,
+   "text": "GENENTECH PRIVATE PROPERTY PUBLIC PARKING ALLOWED EVENINGS & WEEKENDS EVENING PARKING (5:00 PM TO SUNSET) WEEKEND PARKING (SUNRISE TO SUNSET)",
+   "readable": false,
+   "arrow": "none",
+   "problem": "times are missing or unclear",
+   "rules": []
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 4996,
+ "usage": {
+  "prompt_tokens": 2722,
+  "completion_tokens": 189,
+  "total_tokens": 2911,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 81.41727447509766
+ },
+ "readAt": "2026-10-25T00:06:06.330Z"
+}

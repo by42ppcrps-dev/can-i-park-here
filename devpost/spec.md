@@ -104,7 +104,7 @@ PRD ref: `prd.md > Never a Confident Wrong Yes`, `prd.md > Confirming the Signs`
 
 ### Rules Engine (shared)
 `public/js/engine/rules.js`. Pure functions, no DOM, no clock reads (time is always passed in).
-- `buildWeek(signs, { enabled, side })` → 672 blocks. For each block, collect the rules from switched-on signs that cover that quarter hour. A rule **definitely applies** if its sign has no arrow or a double arrow, or its arrow matches `side`. A rule on a left or right arrowed sign while `side` is unknown **might apply**. Then decide:
+- `buildWeek(signs, { enabled, side })` → 672 blocks. For each block, collect the rules from switched-on signs that cover that quarter hour. A rule **definitely applies** if its sign has no arrow or a double arrow, or its arrow matches `side`. A rule on a left or right arrowed sign while `side` is unknown **might apply**, and so does a rule on a sign pointing away from `side` (arrow direction is often misread, so it is never silently dropped; revised in 5-build). Then decide:
   1. Any clearly read not-allowed rule that definitely applies (`no_parking`, `no_standing`, `no_stopping`, `permit_only`, `commercial_only`, `other_restricted`) → `no`.
   2. Else any unreadable sign, or any rule that only might apply (arrowed, side unknown) → `unsure`, matching `prd.md > Which Side of the Pole`. A sign with unknown times covers every block.
   3. Else two definitely applying allowed rules that disagree (different `limitMinutes`, or metered versus free) → `unsure`.
