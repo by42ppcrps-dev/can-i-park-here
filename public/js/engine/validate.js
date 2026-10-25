@@ -111,6 +111,12 @@ function validateRule(r) {
   let e = end === 0 && start === 0 ? 24 * 60 : ceilQuarter(end);
   if (e === s) e = s + 15;
 
+  let season = null;
+  if (r.season !== null && r.season !== undefined) {
+    season = validateSeason(r.season);
+    if (!season) return { problem: "season dates are unclear" };
+  }
+
   const condition = cleanText(r.condition, 80) || null;
   return {
     rule: {
@@ -122,8 +128,64 @@ function validateRule(r) {
       metered: kind === "meter" || r.metered === true,
       note: cleanText(r.note, 80) || null,
       condition,
+      season,
+      largeOnly: r.largeOnly === true,
     },
   };
+}
+
+// Seasons are "MM-DD" pairs, inclusive, and may wrap over New Year (11-01 to 03-31).
+const MONTH_DAYS = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+function validMonthDay(value) {
+  if (typeof value !== "string") return null;
+  const m = /^(\d{1,2})-(\d{1,2})$/.exec(value.trim());
+  if (!m) return null;
+  const month = Number(m[1]);
+  const day = Number(m[2]);
+  if (month < 1 || month > 12 || day < 1 || day > MONTH_DAYS[month - 1]) return null;
+  return `${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
+
+function validateSeason(season) {
+  if (!season || typeof season !== "object") return null;
+  const from = validMonthDay(season.from);
+  const to = validMonthDay(season.to);
+  return from && to ? { from, to } : null;
+}
+
+const MONTH_NUM = {
+  JAN: 1, JANUARY: 1, FEB: 2, FEBRUARY: 2, MAR: 3, MARCH: 3, APR: 4, APRIL: 4, MAY: 5,
+  JUN: 6, JUNE: 6, JUL: 7, JULY: 7, AUG: 8, AUGUST: 8, SEP: 9, SEPT: 9, SEPTEMBER: 9,
+  OCT: 10, OCTOBER: 10, NOV: 11, NOVEMBER: 11, DEC: 12, DECEMBER: 12,
+};
+const MONTH_WORD = "(JAN(?:UARY)?|FEB(?:RUARY)?|MAR(?:CH)?|APR(?:IL)?|MAY|JUNE?|JULY?|AUG(?:UST)?|SEPT?(?:EMBER)?|OCT(?:OBER)?|NOV(?:EMBER)?|DEC(?:EMBER)?)";
+const SEASON_WORDS = new RegExp(`\\b${MONTH_WORD}\\.?\\s*(\\d{1,2})?(?:ST|ND|RD|TH)?\\s*(?:-|TO|THRU|THROUGH)\\s*${MONTH_WORD}\\.?\\s*(\\d{1,2})?(?:ST|ND|RD|TH)?\\b`, "i");
+const SEASON_NUMBERS = /\b(\d{1,2})\/(\d{1,2})\s*(?:-|TO|THRU|THROUGH)\s*(\d{1,2})\/(\d{1,2})\b/i;
+
+// The date range printed on a sign, or null. "APRIL 1-OCT 31" -> { from: "04-01", to: "10-31" }.
+// A month with no day runs from its first to its last day ("APR - NOV").
+export function seasonFromText(text) {
+  if (!text) return null;
+  let m = SEASON_WORDS.exec(text);
+  if (m) {
+    const fm = MONTH_NUM[m[1].toUpperCase()];
+    const tm = MONTH_NUM[m[3].toUpperCase()];
+    const fd = m[2] ? Number(m[2]) : 1;
+    const td = m[4] ? Number(m[4]) : MONTH_DAYS[tm - 1];
+    return validateSeason({ from: `${fm}-${fd}`, to: `${tm}-${td}` });
+  }
+  m = SEASON_NUMBERS.exec(text);
+  if (m) return validateSeason({ from: `${m[1]}-${m[2]}`, to: `${m[3]}-${m[4]}` });
+  return null;
+}
+
+// Words that show a rule only binds big vehicles (LA's "VEHICLES OVER 8' WIDE").
+const LARGE_WORDS = /\bVEHICLES?\b[^.]{0,20}\b(OVER|EXCEEDING|MORE THAN|ABOVE|LONGER|HIGHER|WIDER)\b|\b(OVER|EXCEEDING)\s*\d+\s*(FT|FEET|'|TONS?|LBS|POUNDS)|\bOVER-?SIZED?\b|\bTRUCKS?\b|\bRVS?\b|\bMOTOR ?HOMES?\b|\bCAMPERS?\b|\bTRAILERS?\b|\bBUS(ES)? PARKING\b|\bNO BUS(ES)?\b|\bCOMMERCIAL VEHICLES?\b|\bTONS?\b|\bLBS\b|\bGROSS WEIGHT\b/i;
+// Wording that turns it around: only big vehicles may park, so a regular car may not.
+const LARGE_REVERSED = /\b(EXCEPT|ONLY|LOADING)\b|\bBUS (STOP|ZONE|LANE)\b/i;
+
+export function largeVehicleSign(text) {
+  return !!text && LARGE_WORDS.test(text) && !LARGE_REVERSED.test(text);
 }
 
 function validateSign(s, index) {
@@ -170,30 +232,51 @@ function validateSign(s, index) {
     sign.readable = false;
     sign.problem = "no parking rule found on this sign";
   }
+  // A season must be the one printed on the sign. A season the text doesn't show,
+  // or one that differs from it, makes the sign Not sure: a made up season would
+  // switch a rule off on days it is really in force.
+  const printed = seasonFromText(sign.text);
+  if (sign.rules.some((r) => r.season)) {
+    const wrong = sign.rules.some((r) => r.season && (!printed || r.season.from !== printed.from || r.season.to !== printed.to));
+    if (wrong) {
+      sign.readable = false;
+      sign.problem = sign.problem || (printed ? "season dates don't match the sign" : "season dates not found on the sign");
+    }
+  }
+  // "Only big vehicles" is trusted only when the sign text says so. Otherwise the
+  // rule applies to every car, which can only make the answer stricter.
+  if (!largeVehicleSign(sign.text)) {
+    sign.rules = sign.rules.map((r) => (r.largeOnly ? { ...r, largeOnly: false } : r));
+  }
   // The model sometimes drops a condition it did copy into the text. If the text
-  // says "when snow", "school days", or names months, nothing on the sign is
-  // treated as certain. This can only make the answer stricter.
-  const hint = conditionHint(sign.text);
+  // says "when snow", "school days", or names months it didn't turn into a season,
+  // nothing on the sign is treated as certain. This can only make the answer stricter.
+  const hint = conditionHint(sign.text, { seasonRead: sign.rules.some((r) => r.season) });
   if (hint && sign.rules.length && sign.rules.every((r) => !r.condition)) {
-    sign.rules = sign.rules.map((r) => ({ ...r, condition: hint }));
+    sign.rules = sign.rules.map((r) => (r.largeOnly ? r : { ...r, condition: hint }));
   }
   return sign;
 }
 
 const MONTHS = /\b(JAN|JANUARY|FEB|FEBRUARY|MAR|MARCH|APR|APRIL|MAY|JUN|JUNE|JUL|JULY|AUG|AUGUST|SEPT?|SEPTEMBER|OCT|OCTOBER|NOV|NOVEMBER|DEC|DECEMBER)\b\.?\s*\d{0,2}\s*(-|TO|THRU|THROUGH)/i;
+const SEASONAL = /\bSEASONAL\b/i;
 const CONDITIONS = [
   [/\bSNOW/i, "when it snows"],
   [/\bSCHOOL/i, "on school days"],
   [/\b(EVENTS?|GAME DAYS?|STADIUM)\b/i, "during events"],
   [/\bEMERGENC/i, "during emergencies"],
-  [/\bSEASONAL\b/i, "only some months of the year"],
+  [SEASONAL, "only some months of the year"],
   [/\b(WHEN|LORSQUE)\b/i, "only under a condition on the sign"],
+  [/\b(SUNSET|SUNRISE|DUSK|DAWN)\b/i, "hours set by sunrise or sunset"],
 ];
 
-export function conditionHint(text) {
+export function conditionHint(text, { seasonRead = false } = {}) {
   if (!text) return null;
-  if (MONTHS.test(text)) return "only some months of the year";
-  for (const [re, label] of CONDITIONS) if (re.test(text)) return label;
+  if (!seasonRead && (MONTHS.test(text) || seasonFromText(text))) return "only some months of the year";
+  for (const [re, label] of CONDITIONS) {
+    if (seasonRead && re === SEASONAL) continue;
+    if (re.test(text)) return label;
+  }
   return null;
 }
 
@@ -203,9 +286,12 @@ export function validateReading(raw) {
   if (!data || typeof data !== "object") return { ok: false, error: "reply is not JSON" };
   if (!Array.isArray(data.signs)) return { ok: false, error: "reply has no signs list" };
 
+  // Empty entries are dropped, but a sign the model says it couldn't read (cut off by
+  // the photo edge, too blurry) is kept even with no words: it makes the answer Not sure.
+  const reported = (s) => s.readable === false && cleanText(s.problem, 120);
   const kept = data.signs
     .slice(0, MAX_SIGNS)
-    .filter((s) => !(s && typeof s === "object" && !cleanText(s.text, 300) && !(Array.isArray(s.rules) && s.rules.length)));
+    .filter((s) => !(s && typeof s === "object" && !cleanText(s.text, 300) && !(Array.isArray(s.rules) && s.rules.length) && !reported(s)));
   // Exemption panels ("EXCEPT VEHICLES WITH PERMITS") only loosen a rule for some
   // vehicles, never for an everyday driver, so a ruleless one is safe to leave out.
   const signs = kept

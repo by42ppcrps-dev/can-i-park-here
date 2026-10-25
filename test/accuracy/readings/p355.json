@@ -1,6 +1,6 @@
 {
  "status": 200,
- "wallMs": 5422,
+ "wallMs": 4958,
  "signs": [
   {
    "id": 1,
@@ -25,7 +25,9 @@
      "limitMinutes": null,
      "metered": false,
      "note": null,
-     "condition": null
+     "condition": null,
+     "season": null,
+     "largeOnly": false
     }
    ]
   },
@@ -52,21 +54,23 @@
      "limitMinutes": null,
      "metered": false,
      "note": null,
-     "condition": null
+     "condition": null,
+     "season": null,
+     "largeOnly": false
     }
    ]
   }
  ],
  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
- "ms": 5354,
+ "ms": 4891,
  "usage": {
-  "prompt_tokens": 2722,
-  "completion_tokens": 247,
-  "total_tokens": 2969,
+  "prompt_tokens": 3075,
+  "completion_tokens": 273,
+  "total_tokens": 3348,
   "prompt_tokens_details": {
    "cached_tokens": 0
   },
-  "neurons": 85.89909362792969
+  "neurons": 96.57272338867188
  },
- "readAt": "2026-10-25T00:05:00.367Z"
+ "readAt": "2026-10-25T00:34:22.329Z"
 }

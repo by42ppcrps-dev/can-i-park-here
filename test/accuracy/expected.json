@@ -1,5 +1,7 @@
 {
  "stayMinutes": 60,
+ "weekOf": "2026-10-19",
+ "weekNote": "Test times fall in the week of Monday Oct 19, 2026, so rules with printed season dates are judged on real dates.",
  "testTimes": [
   {
    "label": "Mon 9:00 AM",
@@ -149,7 +151,7 @@
   {
    "file": "p23.jpg",
    "side": "left",
-   "note": "Car on the left, the side the 2 hour sign covers.",
+   "note": "Car on the left, the side the 2 hour sign covers. Street cleaning runs April 1 to Oct 31, as printed.",
    "signs": [
     {
      "text": "STREET CLEANING NO PARKING 7AM-9AM FRIDAYS APRIL 1-OCT 31",
@@ -165,7 +167,11 @@
        "end": "09:00",
        "limitMinutes": null,
        "note": "street cleaning",
-       "condition": "only some months of the year"
+       "condition": null,
+       "season": {
+        "from": "04-01",
+        "to": "10-31"
+       }
       }
      ]
     },

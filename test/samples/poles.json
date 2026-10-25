@@ -1,0 +1,100 @@
+{
+ "weekOf": "2026-10-19",
+ "note": "Sample poles, shown in this order. A pole ships only if the live reading's verdicts match the hand answer at every test time: the accuracy test times plus Fri 8:00 AM (in the street cleaning season) and Mon 10:00 AM, 60 minute stay, in the week of Monday Oct 19, 2026.",
+ "extraTimes": [
+  {
+   "label": "Fri 8:00 AM",
+   "day": "fri",
+   "time": "08:00"
+  },
+  {
+   "label": "Mon 10:00 AM",
+   "day": "mon",
+   "time": "10:00"
+  }
+ ],
+ "poles": [
+  {
+   "id": "p63",
+   "photo": "test/samples/photos/p63.jpg",
+   "name": "Weekday ban and an oversize rule",
+   "place": "Los Angeles County",
+   "side": null,
+   "note": "Holidays and permits are exemptions and are ignored. Sign 2 only binds vehicles over 8 ft wide, 7 1/2 ft high, or 20 ft long, so it never limits a regular car.",
+   "signs": [
+    {
+     "text": "NO PARKING 9AM-5PM MON.-FRI. EXCEPT HOLIDAYS 1R PERMITS EXEMPT",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+       ],
+       "start": "09:00",
+       "end": "17:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "NO PARKING 1AM TO 6AM VEHICLES OVER 8' WIDE 7 1/2' HIGH 20' LONG RV PERMITS EXEMPT LOS ANGELES COUNTY CODE 15.64.075",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "01:00",
+       "end": "06:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null,
+       "largeOnly": true
+      }
+     ]
+    }
+   ],
+   "credit": {
+    "title": "Parking restriction signs in Alsace with Los Angeles County markings",
+    "artist": "Jengod",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "page": "https://commons.wikimedia.org/wiki/File:Parking_restriction_signs_in_Alsace_with_Los_Angeles_County_markings.jpg"
+   }
+  },
+  {
+   "id": "p23",
+   "fromAccuracy": true,
+   "name": "Street cleaning and a 2 hour zone",
+   "place": "Chicago"
+  },
+  {
+   "id": "p291",
+   "fromAccuracy": true,
+   "name": "Two hour zone",
+   "place": "San Francisco"
+  },
+  {
+   "id": "p241",
+   "fromAccuracy": true,
+   "name": "Bus lane pole",
+   "place": "Chicago"
+  }
+ ]
+}

@@ -22,12 +22,14 @@
      "limitMinutes": 120,
      "metered": false,
      "note": null,
-     "condition": null
+     "condition": null,
+     "season": null,
+     "largeOnly": false
     }
    ]
   }
  ],
  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
- "readAt": "2026-10-25T00:05:16.919Z",
+ "readAt": "2026-10-25T00:35:06.083Z",
  "source": "Saved live reading, not edited"
 }

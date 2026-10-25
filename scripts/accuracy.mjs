@@ -15,7 +15,7 @@ const version = (args.find((a) => a.startsWith("--version=")) || "").slice(10) |
 
 const expected = JSON.parse(await readFile("test/accuracy/expected.json", "utf8"));
 const credits = JSON.parse(await readFile("test/accuracy/credits.json", "utf8"));
-const { testTimes, stayMinutes } = expected;
+const { testTimes, stayMinutes, weekOf } = expected;
 
 const counts = { right: 0, unsure: 0, wrongNo: 0, wrongYes: 0 };
 const rows = [];
@@ -30,8 +30,8 @@ for (const photo of expected.photos) {
   if (reading.model) models[reading.model] = (models[reading.model] || 0) + 1;
   if (reading.usage && reading.usage.neurons) { neurons += reading.usage.neurons; live++; }
   if (reading.ms) ms += reading.ms;
-  const want = expectedVerdicts(photo, testTimes, stayMinutes);
-  const got = actualVerdicts(reading, photo, testTimes, stayMinutes);
+  const want = expectedVerdicts(photo, testTimes, stayMinutes, weekOf);
+  const got = actualVerdicts(reading, photo, testTimes, stayMinutes, weekOf);
   const noRules = Array.isArray(photo.signs) && photo.signs.length === 0;
   const result = want.map((w, i) => classify(w, got[i], noRules));
   result.forEach((r) => counts[r]++);
@@ -66,6 +66,7 @@ md.push(`${rows.length} photos, ${testTimes.length} test times each (${testTimes
 md.push(`| Right | Not sure | Wrong NO | Wrong YES |`, `|---|---|---|---|`, `| ${counts.right} | ${counts.unsure} | ${counts.wrongNo} | ${counts.wrongYes} |`, "");
 md.push("How a check is scored: the expected verdict is the rules engine's answer on a hand-written reading of the photo (`expected.json`); the actual verdict is the same engine on the live reading. Same verdict is right. The app saying Not sure, finding no signs, or failing to read counts as Not sure. Any other YES is a wrong YES; any other NO is a wrong NO. For photos with arrows, the car's side is set as listed in `expected.json`.", "");
 md.push("Prompt and validator changes made after reading the ground truth and before this run, all general and all making answers stricter or skipping signs that never restrict an everyday driver: skip angle parking signs and exemption panels; arrows judged by the arrowhead; conditions such as snow, school days, events, months, and \"when\" make a rule Not sure; a sign whose arrow points away from the car is Not sure instead of ignored.", "");
+md.push("Revision round 1 (after hands-on feedback): rules may carry printed season dates (checked against the sign text) and a large vehicles only flag (trusted only when the text names big vehicles); signs cut off by the photo edge are reported as unreadable; test times are dated (week of Mon Oct 19, 2026) so season dates are judged on real dates; `expected.json` changed only for p23, whose street cleaning sign prints APRIL 1-OCT 31. The first rerun of all 26 photos had 3 wrong YES on p280 (hours that run to sunset). Two stricter changes followed: sunrise, sunset, dusk, and dawn make a rule Not sure, and a sign that only says when parking is allowed is Not sure at all other times. Only p280 was read again; the second change is in the rules engine, so it needed no new reading.", "");
 for (const { photo, reading, want, got, result } of rows) {
   const c = credits.find((x) => x.file === photo.file);
   md.push(`## ${photo.file} (${c.city})`, "");

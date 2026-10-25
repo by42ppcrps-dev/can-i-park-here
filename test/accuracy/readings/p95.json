@@ -1,45 +1,26 @@
 {
  "status": 200,
- "wallMs": 2013,
+ "wallMs": 2890,
  "signs": [
   {
    "id": 1,
    "text": "NO STANDING Anytime",
-   "readable": true,
+   "readable": false,
    "arrow": "both",
-   "problem": null,
-   "rules": [
-    {
-     "kind": "no_standing",
-     "days": [
-      "mon",
-      "tue",
-      "wed",
-      "thu",
-      "fri",
-      "sat",
-      "sun"
-     ],
-     "start": "00:00",
-     "end": "24:00",
-     "limitMinutes": null,
-     "metered": false,
-     "note": null,
-     "condition": null
-    }
-   ]
+   "problem": "days are missing or unclear",
+   "rules": []
   }
  ],
  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
- "ms": 1961,
+ "ms": 2848,
  "usage": {
-  "prompt_tokens": 2722,
-  "completion_tokens": 65,
-  "total_tokens": 2787,
+  "prompt_tokens": 3075,
+  "completion_tokens": 106,
+  "total_tokens": 3181,
   "prompt_tokens_details": {
    "cached_tokens": 0
   },
-  "neurons": 71.83545684814453
+  "neurons": 83.66818237304688
  },
- "readAt": "2026-10-25T00:05:38.653Z"
+ "readAt": "2026-10-25T00:35:31.740Z"
 }

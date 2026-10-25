@@ -1,9 +1,9 @@
 // Sign Cards: one card per sign with its plain rule and a "Use this sign" switch.
-import { describeRule } from "./engine/describe.js";
+import { describeRule, LARGE_ONLY_TEXT } from "./engine/describe.js";
 import { RESTRICTIVE_KINDS } from "./engine/validate.js";
 
-const ARROW_TEXT = { left: "Points left", right: "Points right", both: "Points both ways" };
-const ARROW_ICON = { left: "i-left", right: "i-right", both: "i-both" };
+const ARROW_TEXT = { left: "Points left", right: "Points right", both: "Points both ways", none: "No arrow" };
+const ARROW_ICON = { left: "i-left", right: "i-right", both: "i-both", none: "i-noarrow" };
 
 function el(tag, cls, text) {
   const n = document.createElement(tag);
@@ -21,24 +21,28 @@ function icon(id) {
 }
 
 function accent(sign) {
+  if (sign.readable && sign.rules.length && sign.rules.every((r) => r.largeOnly)) return "k-other";
   if (!sign.readable || sign.rules.some((r) => r.condition)) return "k-unsure";
   if (sign.rules.some((r) => RESTRICTIVE_KINDS.includes(r.kind))) return "k-no";
   if (sign.rules.some((r) => r.kind === "time_limit" || r.kind === "meter")) return "k-limited";
   return "k-free";
 }
 
-export function createCards(list, { onToggle }) {
+export function createCards(list, { onToggle, onArrow }) {
   let highlighted = [];
   let lastSigns = null;
   let lastKey = "";
 
+  // signs here already carry the driver's arrow fixes, so a fix makes a new list.
   function render(signs, enabled) {
     const key = [...enabled].sort().join(",");
     if (signs === lastSigns && key === lastKey) return;
     lastSigns = signs;
     lastKey = key;
-    const focused = document.activeElement && document.activeElement.closest && document.activeElement.closest(".card");
+    const active = document.activeElement;
+    const focused = active && active.closest && active.closest(".card");
     const focusId = focused ? focused.dataset.sign : null;
+    const focusArrow = !!(active && active.classList && active.classList.contains("card-arrow"));
     list.replaceChildren();
     for (const sign of signs) {
       const on = enabled.has(sign.id);
@@ -60,13 +64,17 @@ export function createCards(list, { onToggle }) {
         body.append(u);
         if (sign.problem) body.append(el("p", "card-problem", `Reason: ${sign.problem}.`));
       } else {
-        for (const rule of sign.rules) body.append(el("p", "card-rule", describeRule(rule)));
+        for (const text of new Set(sign.rules.map(describeRule))) {
+          body.append(el("p", `card-rule${text === LARGE_ONLY_TEXT ? " large" : ""}`, text));
+        }
       }
-      if (ARROW_TEXT[sign.arrow]) {
-        const a = el("span", "card-arrow");
-        a.append(icon(ARROW_ICON[sign.arrow]), document.createTextNode(ARROW_TEXT[sign.arrow]));
-        body.append(a);
-      }
+      // The arrow is easy to misread, so the driver can fix it: each tap moves to the next direction.
+      const a = el("button", `card-arrow${sign.arrowChecked ? " fixed" : ""}`);
+      a.type = "button";
+      a.append(icon(ARROW_ICON[sign.arrow]), el("span", null, ARROW_TEXT[sign.arrow]), el("span", "card-arrow-change", sign.arrowChecked ? "Checked" : "Change"));
+      a.setAttribute("aria-label", `Sign ${sign.id} arrow: ${ARROW_TEXT[sign.arrow].toLowerCase()}${sign.arrowChecked ? ", set by you" : ""}. Change`);
+      a.addEventListener("click", () => onArrow(sign.id));
+      body.append(a);
       top.append(num, body);
 
       const foot = el("div", "card-foot");
@@ -83,7 +91,7 @@ export function createCards(list, { onToggle }) {
 
       li.append(top, foot);
       list.append(li);
-      if (focusId && Number(focusId) === sign.id) input.focus({ preventScroll: true });
+      if (focusId && Number(focusId) === sign.id) (focusArrow ? a : input).focus({ preventScroll: true });
     }
     applyHighlight(false);
   }

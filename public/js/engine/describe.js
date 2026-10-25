@@ -39,20 +39,35 @@ export function formatSpan(start, end) {
   return sameHalf ? `${a.slice(0, -3)} to ${b}` : `${a} to ${b}`;
 }
 
+const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// { from: "04-01", to: "10-31" } -> "Apr 1 to Oct 31"
+export function formatSeason(season) {
+  const md = (v) => {
+    const [m, d] = v.split("-").map(Number);
+    return `${MONTH_SHORT[m - 1]} ${d}`;
+  };
+  return `${md(season.from)} to ${md(season.to)}`;
+}
+
+export const LARGE_ONLY_TEXT = "Only for oversized vehicles, not a regular car";
+
 function ruleHead(rule) {
   if (rule.kind === "time_limit") return `${formatLimit(rule.limitMinutes)} parking${rule.metered ? ", pay the meter" : ""}`;
   if (rule.kind === "meter") return rule.limitMinutes ? `Paid parking, ${formatLimit(rule.limitMinutes)} limit` : "Paid parking";
   return KIND_TEXT[rule.kind];
 }
 
-// "No parking Tue 8:30 to 9:00 AM, street cleaning"
+// "No parking Tue 8:30 to 9:00 AM, Apr 1 to Oct 31, street cleaning"
 export function describeRule(rule) {
+  if (rule.largeOnly) return LARGE_ONLY_TEXT;
   const span = formatSpan(rule.start, rule.end);
   const days = formatDays(rule.days);
   let when;
   if (!span) when = days === "every day" ? "anytime" : `${days}, all day`;
   else when = days === "every day" ? span : `${days} ${span}`;
   let text = `${ruleHead(rule)} ${when}`;
+  if (rule.season) text += `, ${formatSeason(rule.season)}`;
   const note = rule.note && !ruleHead(rule).toLowerCase().includes(rule.note.toLowerCase()) ? rule.note : null;
   if (note) text += `, ${note}`;
   if (rule.condition) text += `, ${rule.condition}`;
@@ -61,7 +76,7 @@ export function describeRule(rule) {
 
 export function describeSign(sign) {
   if (!sign.readable) return "Couldn't read this one";
-  return sign.rules.map(describeRule).join(". ");
+  return [...new Set(sign.rules.map(describeRule))].join(". ");
 }
 
 function signList(ids) {
@@ -134,13 +149,16 @@ export function describeBlock(block, signs) {
     return block.causes.map((id) => {
       const s = byId(id);
       if (!s.readable) return `Sign ${id}: Couldn't read this one. Switch it off if it doesn't apply.`;
+      if (block.reasons.includes("outside") && !block.refs.some((r) => r[0] === id)) {
+        return `Sign ${id} only says when parking is allowed, not what applies at other times.`;
+      }
       const ref = block.refs.find((r) => r[0] === id);
       const rule = describeRule(s.rules[ref ? ref[1] : 0]);
       if (block.reasons.includes("side") && (s.arrow === "left" || s.arrow === "right")) {
         return `Sign ${id}: ${rule}. It points ${s.arrow}, so it depends on which side your car is on.`;
       }
       if (block.reasons.includes("away") && (s.arrow === "left" || s.arrow === "right")) {
-        return `Sign ${id}: ${rule}. We read its arrow as pointing ${s.arrow}, away from your car, but arrows are easy to misread. Check the arrow, and switch this sign off if it doesn't apply to you.`;
+        return `Sign ${id}: ${rule}. We read its arrow as pointing ${s.arrow}, away from your car, but arrows are easy to misread. Check the arrow on the sign and tap the arrow on its card to fix it.`;
       }
       return `Sign ${id}: ${rule}. The app can't tell if that applies right now.`;
     }).join(" ");

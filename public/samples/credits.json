@@ -1,5 +1,19 @@
 [
  {
+  "id": "p63",
+  "image": "/samples/p63.jpg",
+  "thumb": "/samples/p63-thumb.jpg",
+  "reading": "/samples/p63.json",
+  "signCount": 2,
+  "title": "Parking restriction signs in Alsace with Los Angeles County markings",
+  "artist": "Jengod",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Parking_restriction_signs_in_Alsace_with_Los_Angeles_County_markings.jpg",
+  "name": "Weekday ban and an oversize rule",
+  "place": "Los Angeles County"
+ },
+ {
   "id": "p291",
   "image": "/samples/p291.jpg",
   "thumb": "/samples/p291-thumb.jpg",
@@ -26,19 +40,5 @@
   "page": "https://commons.wikimedia.org/wiki/File:Two_%22right_lane_buses_only%22_signs_-_Chicago,_IL_-_December_2021.jpg",
   "name": "Bus lane pole",
   "place": "Chicago"
- },
- {
-  "id": "p356",
-  "image": "/samples/p356.jpg",
-  "thumb": "/samples/p356-thumb.jpg",
-  "reading": "/samples/p356.json",
-  "signCount": 1,
-  "title": "One-way and loading zone signs in Kent, Washington",
-  "artist": "Roc0ast3r",
-  "license": "CC0",
-  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-  "page": "https://commons.wikimedia.org/wiki/File:One-way_and_loading_zone_signs_in_Kent,_Washington.jpg",
-  "name": "Alley loading zone",
-  "place": "Kent, WA"
  }
 ]

@@ -3,7 +3,7 @@
 import { shrinkPhoto, readPhoto, PhotoError } from "./photo.js";
 import { createCards } from "./cards.js";
 import { createVerdict } from "./verdict.js";
-import { buildWeek, verdict, minuteOfWeek, stayMinutesFor, formatBlockTime } from "./engine/rules.js";
+import { buildWeek, verdict, minuteOfWeek, stayMinutesFor, formatBlockTime, withArrows, nextArrow, mondayOf, addDays } from "./engine/rules.js";
 import { describeVerdict, describeBlock, describeWeek } from "./engine/describe.js";
 import { createGrid } from "./grid.js";
 
@@ -16,7 +16,9 @@ const state = {
   photoUrl: null,
   signs: [],
   enabled: new Set(),
+  arrows: new Map(), // the driver's arrow fixes: sign id -> arrow
   side: null,
+  weekStart: mondayOf(new Date()), // the grid is this real week, Monday first
   startIndex: 0,
   nowIndex: 0,
   chip: "1h",
@@ -35,6 +37,14 @@ const cards = createCards($("#cards"), {
     if (on) state.enabled.add(id);
     else state.enabled.delete(id);
     render();
+  },
+  onArrow(id) {
+    const sign = viewSigns().find((s) => s.id === id);
+    const arrow = nextArrow(sign.arrow);
+    state.arrows.set(id, arrow);
+    render();
+    const words = { left: "points left", right: "points right", both: "points both ways", none: "has no arrow" };
+    $("#cards-live").textContent = `Sign ${id} ${words[arrow]}. The answer is updated.`;
   },
 });
 const verdictView = createVerdict($("#verdict"));
@@ -126,12 +136,13 @@ async function runLive({ dataUrl, previewUrl }) {
   }
 }
 
-export async function startFromSample(sample) {
+export async function startFromSample(sample, { instant = false } = {}) {
   startError("");
   controller?.abort();
   controller = new AbortController();
   const mine = controller;
   state.retry = () => startFromSample(sample);
+  setSampleUrl(sample.id);
   showReading(sample.image);
   try {
     const [reading] = await Promise.all([
@@ -139,7 +150,7 @@ export async function startFromSample(sample) {
         if (!r.ok) throw new Error("missing");
         return r.json();
       }),
-      new Promise((r) => setTimeout(r, SAMPLE_MIN_MS)),
+      new Promise((r) => setTimeout(r, instant ? 0 : SAMPLE_MIN_MS)),
     ]);
     if (mine.signal.aborted) return;
     clearTimers();
@@ -150,12 +161,24 @@ export async function startFromSample(sample) {
   }
 }
 
+// A sample pole has its own link (/?sample=p63) for sharing; any other view drops it.
+function setSampleUrl(id) {
+  const url = new URL(location.href);
+  if (id) url.searchParams.set("sample", id);
+  else url.searchParams.delete("sample");
+  if (url.href !== location.href) history.replaceState(null, "", url);
+}
+
 function showAnswer(signs, photoUrl) {
   state.signs = signs;
   state.photoUrl = photoUrl;
   state.enabled = new Set(signs.map((s) => s.id));
+  state.arrows = new Map();
+  $("#cards-live").textContent = "";
   state.side = null;
-  state.nowIndex = minuteOfWeek(new Date());
+  const now = new Date();
+  state.weekStart = mondayOf(now);
+  state.nowIndex = minuteOfWeek(now);
   state.startIndex = state.nowIndex;
   state.chip = "1h";
   state.selectedBlock = null;
@@ -165,7 +188,8 @@ function showAnswer(signs, photoUrl) {
   $("#confirm-lead").textContent =
     `We read ${signs.length} sign${signs.length === 1 ? "" : "s"} on this pole` +
     (unreadable ? `, ${unreadable} we couldn't make out. ` : ". ") +
-    "Check them below and switch off any that look wrong.";
+    "Check them below: tap an arrow to fix it, and switch off any sign that looks wrong. " +
+    "If a sign is cut off at the edge of your photo, take a new one with the whole pole.";
   $(".answer-layout").classList.add("confirming");
   showView("answer");
   hooks.onAnswer.forEach((f) => f());
@@ -185,19 +209,36 @@ function select(i) {
   render();
 }
 
+// The signs as the driver sees them: the reading plus their arrow fixes.
+let viewFor = { signs: null, key: "", out: [] };
+function viewSigns() {
+  const key = [...state.arrows].map((x) => x.join(":")).join(",");
+  if (state.signs !== viewFor.signs || key !== viewFor.key) {
+    viewFor = { signs: state.signs, key, out: withArrows(state.signs, state.arrows) };
+  }
+  return viewFor.out;
+}
+
 function needsSide() {
-  return state.signs.some((s) => state.enabled.has(s.id) && (s.arrow === "left" || s.arrow === "right"));
+  return viewSigns().some((s) => state.enabled.has(s.id) && (s.arrow === "left" || s.arrow === "right"));
 }
 
 let lastWeek = null;
-let weekFor = { signs: null, key: "", week: null };
+let weekFor = { signs: null, key: "", week: null, next: null };
 function render() {
   if (state.view !== "answer") return;
+  const signs = viewSigns();
   const side = needsSide() ? state.side : null;
-  // The week only changes with the signs, the switches, or the side; reuse it while dragging.
-  const key = `${[...state.enabled].sort().join(",")}|${side}`;
-  if (state.signs !== weekFor.signs || key !== weekFor.key) {
-    weekFor = { signs: state.signs, key, week: buildWeek(state.signs, { enabled: state.enabled, side }) };
+  // The week only changes with the signs, the switches, the side, or the dates; reuse it while dragging.
+  const key = `${[...state.enabled].sort().join(",")}|${side}|${state.weekStart.getTime()}`;
+  if (signs !== weekFor.signs || key !== weekFor.key) {
+    const opts = { enabled: state.enabled, side };
+    weekFor = {
+      signs, key,
+      week: buildWeek(signs, { ...opts, weekStart: state.weekStart }),
+      // A stay that runs past Sunday night continues into next week's dates.
+      next: buildWeek(signs, { ...opts, weekStart: addDays(state.weekStart, 7) }),
+    };
   }
   const week = weekFor.week;
   lastWeek = week;
@@ -207,8 +248,8 @@ function render() {
   let v = null;
   if (none) verdictView.empty();
   else {
-    v = verdict(week, state.startIndex, stay);
-    verdictView.show(describeVerdict(v, state.signs, state.startIndex));
+    v = verdict(week, state.startIndex, stay, { next: weekFor.next });
+    verdictView.show(describeVerdict(v, signs, state.startIndex));
   }
 
   $("#when-time").textContent = state.startIndex === state.nowIndex
@@ -221,13 +262,13 @@ function render() {
   $("#side-q").hidden = !needsSide();
   document.querySelectorAll(".side-btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.side === state.side)));
 
-  cards.render(state.signs, state.enabled);
+  cards.render(signs, state.enabled);
   const selected = state.selectedBlock !== null ? week[state.selectedBlock] : null;
   cards.highlight(selected ? selected.causes : [], highlightScroll);
   highlightScroll = false;
 
   grid.render({ week, startIndex: state.startIndex, stay, todayIndex: state.nowIndex, none, selected: state.selectedBlock });
-  $("#grid-caption").textContent = selected && !none ? describeBlock(selected, state.signs) : none ? "No signs switched on." : "";
+  $("#grid-caption").textContent = selected && !none ? describeBlock(selected, signs) : none ? "No signs switched on." : "";
   const weekText = none ? "No signs switched on." : describeWeek(week);
   if ($("#week-text").textContent !== weekText) $("#week-text").textContent = weekText;
 
@@ -241,10 +282,11 @@ export function currentWeek() {
 // Events
 $("#camera-input").addEventListener("change", (e) => { startFromFile(e.target.files[0]); e.target.value = ""; });
 $("#upload-input").addEventListener("change", (e) => { startFromFile(e.target.files[0]); e.target.value = ""; });
-$("#cancel-btn").addEventListener("click", () => { controller?.abort(); clearTimers(); showView("start"); });
-$("#problem-back-btn").addEventListener("click", () => showView("start"));
+$("#cancel-btn").addEventListener("click", () => { controller?.abort(); clearTimers(); setSampleUrl(null); showView("start"); });
+$("#problem-back-btn").addEventListener("click", () => { setSampleUrl(null); showView("start"); });
 $("#retry-btn").addEventListener("click", () => state.retry ? state.retry() : showView("start"));
 $("#again-btn").addEventListener("click", () => {
+  setSampleUrl(null);
   state.signs = [];
   state.enabled = new Set();
   state.photoUrl = null;
@@ -257,7 +299,9 @@ $("#show-answer-btn").addEventListener("click", () => {
   $("#verdict").scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
 });
 $("#now-btn").addEventListener("click", () => {
-  state.nowIndex = minuteOfWeek(new Date());
+  const now = new Date();
+  state.weekStart = mondayOf(now);
+  state.nowIndex = minuteOfWeek(now);
   setStart(state.nowIndex);
 });
 document.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => { state.chip = c.dataset.chip; render(); }));
@@ -267,11 +311,11 @@ document.querySelectorAll(".side-btn").forEach((b) => b.addEventListener("click"
 function drawDemo() {
   const host = $("#demo-grid");
   if (!host) return;
-  const weekdays = ["mon", "tue", "wed", "thu", "fri", "sat"];
+  // Decorative, shaped like the Los Angeles County sample pole: no parking weekdays
+  // 9 to 5; its oversize vehicle sign leaves a regular car's week alone.
   const example = [
-    { id: 1, readable: true, arrow: "none", rules: [{ kind: "no_parking", days: ["tue"], start: "08:30", end: "10:00", limitMinutes: null, metered: false, note: null, condition: null }] },
-    { id: 2, readable: true, arrow: "none", rules: [{ kind: "time_limit", days: weekdays, start: "10:00", end: "19:00", limitMinutes: 120, metered: false, note: null, condition: null }] },
-    { id: 3, readable: true, arrow: "none", rules: [{ kind: "no_standing", days: ["mon", "tue", "wed", "thu", "fri"], start: "16:00", end: "19:00", limitMinutes: null, metered: false, note: null, condition: null }] },
+    { id: 1, readable: true, arrow: "none", rules: [{ kind: "no_parking", days: ["mon", "tue", "wed", "thu", "fri"], start: "09:00", end: "17:00", limitMinutes: null, metered: false, note: null, condition: null }] },
+    { id: 2, readable: true, arrow: "none", rules: [{ kind: "no_parking", days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], start: "01:00", end: "06:00", limitMinutes: null, metered: false, note: null, condition: null, largeOnly: true }] },
   ];
   const week = buildWeek(example, {});
   const colors = { free: "var(--free)", limited: "var(--limited)", no: "var(--no)", unsure: "var(--unsure)" };
@@ -355,6 +399,7 @@ async function loadSamples() {
     list.append(li);
     $("#credit-list").append(creditLine(s));
   }
+  return samples;
 }
 
 async function loadAccuracy() {
@@ -379,9 +424,19 @@ $("#home-link").addEventListener("click", (e) => {
   e.preventDefault();
   controller?.abort();
   clearTimers();
+  setSampleUrl(null);
   showView("start");
 });
 
+// /?sample=<id> opens that sample pole straight to the confirm step.
+async function openDeepLink(samples) {
+  const id = new URL(location.href).searchParams.get("sample");
+  if (!id) return;
+  const sample = samples.find((s) => s.id === id);
+  if (sample) startFromSample(sample, { instant: true });
+  else setSampleUrl(null);
+}
+
 drawDemo();
-loadSamples();
+loadSamples().then(openDeepLink);
 loadAccuracy();

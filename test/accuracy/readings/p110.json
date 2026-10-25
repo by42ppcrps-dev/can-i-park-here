@@ -1,12 +1,12 @@
 {
  "status": 200,
- "wallMs": 3394,
+ "wallMs": 30948,
  "signs": [
   {
    "id": 1,
    "text": "NO STANDING ANYTIME",
    "readable": true,
-   "arrow": "right",
+   "arrow": "both",
    "problem": null,
    "rules": [
     {
@@ -24,22 +24,24 @@
      "end": "24:00",
      "limitMinutes": null,
      "metered": false,
-     "note": null,
-     "condition": null
+     "note": "temporary construction regulation",
+     "condition": null,
+     "season": null,
+     "largeOnly": false
     }
    ]
   }
  ],
- "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
- "ms": 3308,
+ "model": "@cf/mistralai/mistral-small-3.1-24b-instruct",
+ "ms": 5909,
  "usage": {
-  "prompt_tokens": 2722,
-  "completion_tokens": 161,
-  "total_tokens": 2883,
+  "prompt_tokens": 2704,
+  "completion_tokens": 91,
+  "total_tokens": 2795,
   "prompt_tokens_details": {
    "cached_tokens": 0
   },
-  "neurons": 79.2536392211914
+  "neurons": 90.78711700439453
  },
- "readAt": "2026-10-25T00:05:03.767Z"
+ "readAt": "2026-10-25T00:34:53.294Z"
 }

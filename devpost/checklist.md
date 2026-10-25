@@ -83,11 +83,20 @@ Build mode: fast (Matt's standing choice, "every step verified and committed"; r
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored: shared with the final review session. Matt's operator does the hands-on checks after the first full build pass and feeds one revision round (operator note). Pending.
-- [ ] Final kick-the-tires exploration and feedback completed. Pending: hands-on feedback from Matt's operator, not yet given.
+- [x] Early usable behavior explored: shared with the final review session. Matt's operator tried the live app on desktop and phone after the first full build pass (Sat Oct 24 evening MT) and gave revision round 1 (`brief/REVISION-1.md`).
+- [x] Final kick-the-tires exploration and feedback completed: the same hands-on session, real operator feedback, 9 items, listed under Final Review.
 
 ## Final Review
 
+- [ ] Revision 1, item 1: sample poles show more than one kind of block. Built: p63 (red weekday blocks, green, plus an oversize card) leads; p23 was not shipped (see Revisions). Operator to retry.
+- [ ] Revision 1, item 2: season dates on rules (validator, engine on real dates, card text, tests). Built and verified; operator to retry.
+- [ ] Revision 1, item 3: oversize vehicle rules leave a regular car alone; "For a regular car" by the stay line. Built and verified; operator to retry.
+- [ ] Revision 1, item 4: arrow chip is a button (left, right, both ways, no arrow), keyboard and screen reader friendly. Built and verified; operator to retry.
+- [ ] Revision 1, item 5: cut off signs reported as unreadable. Prompt and validator built; the live read of p161 still left the sign out (see Revisions). Needs an operator decision.
+- [ ] Revision 1, item 6: `/?sample=<id>` deep links. Built and verified; operator to retry.
+- [ ] Revision 1, item 7: accuracy rerun on all 26 photos. Done: 81 right, 19 Not sure, 4 wrong NO, 0 wrong YES after one stricter fix (disclosed).
+- [ ] Revision 1, item 8: new sample poles. p63 shipped; p23 did not match; p291 and p241 kept.
+- [ ] Revision 1, item 9: start page Example card shaped like p63. Built.
 - [ ] Final review complete: feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
@@ -119,4 +128,17 @@ Activity mode: not started
 - The ground truth set has 26 photos (the labeler's strict legibility rule), not about 30; all 26 are in the accuracy run.
 - Accuracy test times are Mon 9:00 AM, Tue 8:45 AM, Sat 2:00 PM, Sun 3:00 AM (4 per photo, per the operator notes) instead of 3. Expected verdicts are the engine's answer on a hand-written reading, so conditions the app cannot check (snow light, game nights, eclipse day) are expected to be Not sure. Result on 104 checks: 77 right, 23 Not sure, 4 wrong NO, 0 wrong YES; no stricter rerun was needed.
 - A YES with nothing blocking all week now names a time limit that starts later ("YES, 2 hour limit from Mon 9:00 AM") instead of "no limits found this week". The final live check on a weekday-only 2 hour sign on a Saturday showed the old line contradicting the card.
-- Hands-on feedback is pending. Matt's operator does the hands-on checks after this first full build pass and feeds one revision round; nothing has been reported yet.
+- Hands-on feedback is pending. Matt's operator does the hands-on checks after this first full build pass and feeds one revision round; nothing has been reported yet. (Superseded: revision round 1 below.)
+
+### Revision round 1 (operator hands-on feedback, Oct 24 evening MT)
+
+- Season dates: rules carry an optional `season: {from: "MM-DD", to: "MM-DD"}` (inclusive, may wrap over New Year). The validator reads the range printed on the sign ("APRIL 1-OCT 31", "DEC 1 TO APR 1", "APR - NOV", "4/1 - 11/30") and makes the sign Not sure if the model's season is malformed, not printed, or different. Printed months with no season still add a condition (Not sure). The grid is now a real dated week (Monday of this week); each block uses its own calendar date, and a stay past Sunday night reads next week's dates. Without dates, a seasonal rule is Not sure. Changes `spec.md > Data Model` and `spec.md > Rules Engine (shared)`.
+- Oversize vehicles: rules carry `largeOnly`. It is trusted only when the sign text names big vehicles (VEHICLES OVER, TRUCKS, RV, TONS...) and not ONLY, EXCEPT, LOADING, or a bus stop; otherwise the rule applies to every car. Such rules stay on the card as "Only for oversized vehicles, not a regular car" and are left out of the verdict and grid. "For a regular car" shows once, by the stay line.
+- Arrow fixes: each card's arrow chip is a button that cycles Points left, Points right, Both ways, No arrow. A fixed arrow is marked as checked by the driver, so a checked arrow pointing away from the car is no longer Not sure (the sign simply doesn't apply). Focus stays on the button and a polite live region announces the change. Changes `prd.md > Which Side of the Pole` (operator decision, Matt to review).
+- Cut off signs: the prompt asks for any sign cut off by the photo edge or too blurry to be listed as unreadable with a short problem, and the validator now keeps such a sign even with no readable words. Two live reads of p161 (first prompt, then a stricter one that names the photo edges) both still left out the cut off top sign, so this does not work yet with Llama 4 Scout. As a guard, the check step now says "If a sign is cut off at the edge of your photo, take a new one with the whole pole." Readings in `test/samples/checks/`.
+- Deep links: `/?sample=<id>` opens that sample straight to the check step (no scan delay); tapping a sample sets the link, going back clears it, an unknown id shows the normal start page.
+- Accuracy: test times are dated (week of Mon Oct 19, 2026). `expected.json` changed only for p23 (season Apr 1 to Oct 31, from the printed text). First rerun of all 26 photos: 82 right, 15 Not sure, 4 wrong NO, 3 wrong YES, all on p280 (fallback model read "5:00 PM TO SUNSET" hours as fixed free hours). Made stricter: sunrise, sunset, dusk, and dawn are a condition (Not sure), and a sign whose only rules are "allowed" windows is Not sure at all other times. Reran p280 only; the engine change needed no new reading. Final: 81 right, 19 Not sure, 4 wrong NO, 0 wrong YES. Disclosed in `test/accuracy/report.md` and the README.
+- Sample poles: p63 (Los Angeles County) matched the hand answer at all 6 test times and leads. p23 (Chicago) read the season exactly but read the 2 hour sign's arrow as right again, so it was Not sure at 4 of 6 times and was not shipped. p291 (San Francisco) and p241 (Chicago) still match and follow; p356 was retired. Candidates and hand answers in `test/samples/poles.json`.
+- Example card on the start page is shaped like p63 (weekdays 9 to 5 red), labeled Example.
+- Tests: 48 to 78 (`test/season.test.js`, `test/vehicles-arrows.test.js`, plus additions in rules, describe, validate, score).
+- Live AI calls this round: 30 readings (26 accuracy, 1 rerun of p280, 1 p63, 2 p161), about 90 neurons each.

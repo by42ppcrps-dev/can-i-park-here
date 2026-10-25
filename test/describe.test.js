@@ -89,3 +89,9 @@ test("the week reads as text for screen readers", () => {
   assert.match(text, /^Mon: free all day\. Tue: no parking 8:30 AM to 9:00 AM; free otherwise\./);
   assert.equal(describeSign(signs({ text: "?", readable: false, rules: [] })[0]), "Couldn't read this one");
 });
+
+test("blocks outside an allowed-only sign explain themselves", () => {
+  const s = signs({ text: "PUBLIC PARKING ALLOWED WEEKENDS", rules: [rule("free", ["sat", "sun"], "00:00", "24:00")] });
+  const w = buildWeek(s);
+  assert.equal(describeBlock(w[at("mon", 9)], s), "Sign 1 only says when parking is allowed, not what applies at other times.");
+});

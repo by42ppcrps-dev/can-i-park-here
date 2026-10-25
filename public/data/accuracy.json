@@ -9,14 +9,15 @@
   "Sat 2:00 PM",
   "Sun 3:00 AM"
  ],
- "right": 77,
- "unsure": 23,
+ "right": 81,
+ "unsure": 19,
  "wrongNo": 4,
  "wrongYes": 0,
  "models": {
-  "@cf/meta/llama-4-scout-17b-16e-instruct": 26
+  "@cf/meta/llama-4-scout-17b-16e-instruct": 25,
+  "@cf/mistralai/mistral-small-3.1-24b-instruct": 1
  },
- "workerVersion": "c59fff6e-5707-4283-bca9-ab6083c001e9",
- "averageNeuronsPerReading": 79,
- "averageSecondsPerReading": 3.7
+ "workerVersion": "9cf0320f-7414-4c06-a4d3-93057a48e277",
+ "averageNeuronsPerReading": 90,
+ "averageSecondsPerReading": 4
 }

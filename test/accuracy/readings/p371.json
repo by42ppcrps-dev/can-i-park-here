@@ -1,10 +1,10 @@
 {
  "status": 200,
- "wallMs": 3775,
+ "wallMs": 6811,
  "signs": [
   {
    "id": 1,
-   "text": "CARPOOLING & BUS PASSENGERS ONLY NO VEHICLE STORAGE NO CAMPERS NO BOX TRUCKS VIOLATORS ASSUME ALL RELATED EXPENSES 21 DAY MAXIMUM",
+   "text": "CARPOOLING & BUS PASSENGERS ONLY NO VEHICLE STORAGE NO CAMPERS NO BOX TRUCKS VIOLATORS ASSUME ALL RELATED EXPENSES 21 DAY MAXIMUM PARK & RIDE PARKING NOTICE massDOT",
    "readable": true,
    "arrow": "none",
    "problem": null,
@@ -25,21 +25,63 @@
      "limitMinutes": null,
      "metered": false,
      "note": null,
-     "condition": null
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    },
+    {
+     "kind": "no_standing",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    },
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
     }
    ]
   }
  ],
  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
- "ms": 3726,
+ "ms": 6692,
  "usage": {
-  "prompt_tokens": 3302,
-  "completion_tokens": 156,
-  "total_tokens": 3458,
+  "prompt_tokens": 3655,
+  "completion_tokens": 364,
+  "total_tokens": 4019,
   "prompt_tokens_details": {
    "cached_tokens": 0
   },
-  "neurons": 93.1036376953125
+  "neurons": 117.84091186523438
  },
- "readAt": "2026-10-25T00:05:57.677Z"
+ "readAt": "2026-10-25T00:35:53.655Z"
 }

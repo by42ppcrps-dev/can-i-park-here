@@ -11,9 +11,12 @@ Snap a parking sign pole. Get one clear answer for right now, and see the whole 
 A pole with four stacked parking signs turns parking into mental math. Can I Park Here reads the signs from a photo and gives one answer:
 
 - A giant **YES**, **NO**, or **NOT SURE** for the time you pick and how long you are staying (15 min, 1 h, 2 h, 4 h, or overnight).
-- The signs it read, as plain cards top to bottom. Switch off any card that looks wrong and the answer updates.
+- The signs it read, as plain cards top to bottom. Switch off any card that looks wrong, or tap a card's arrow to fix its direction, and the answer updates.
 - A week grid, Monday to Sunday, colored free, time limit or meter, not allowed, or not sure. Drag the time travel line to any moment of the week and the answer changes live. Tap a block to see which sign caused it.
 - If a sign has an arrow, it asks which side of the pole your car is on.
+- Answers are for a regular passenger car. Rules only for oversized vehicles, trucks, RVs, or buses stay on their card but don't limit you.
+- Printed season dates (street cleaning APRIL 1 - OCT 31) are applied on the real calendar dates of the week shown.
+- Share a sample pole with a link: `/?sample=p63` opens it straight to the check step.
 
 It is a reading aid. Always double-check the sign. Photos are not stored.
 
@@ -22,21 +25,22 @@ It is a reading aid. Always double-check the sign. Photos are not stored.
 **The AI reads the signs; a plain, testable rules engine decides.** The AI never decides YES by itself.
 
 1. The phone shrinks the photo and sends it to a Cloudflare Worker, which asks a Workers AI vision model (Llama 4 Scout, with Mistral Small 3.1 as a fallback) to copy each sign and turn it into structured rules, as strict JSON.
-2. A validator checks every field. Anything malformed, unclear, or conditional (snow, game nights, some months only) becomes a Not sure sign instead of being dropped or trusted.
+2. A validator checks every field. Anything malformed, unclear, or conditional (snow, game nights, sunrise to sunset) becomes a Not sure sign instead of being dropped or trusted. A season must match the dates printed on the sign, and "large vehicles only" is trusted only when the sign text names big vehicles. A sign cut off by the photo edge is meant to come back as unreadable, which makes the answer Not sure.
 3. The rules engine turns the signs into 672 quarter-hour blocks for the week and checks every block of your stay. A clear not-allowed rule wins (NO). Anything uncertain beats an allowed rule (NOT SURE). Only a stay that is clearly allowed from start to end gets YES.
-4. Arrows are easy to misread, so a sign whose arrow points away from your side shows as Not sure until you check it and switch it off. It is never silently ignored.
+4. Arrows are easy to misread, so a sign whose arrow points away from your side shows as Not sure until you check it. Tap the arrow on its card to set it to left, right, both ways, or none; once you have set it, the engine trusts your answer. It is never silently ignored.
+5. A sign that only says when parking is allowed ("public parking evenings and weekends") is Not sure at every other time.
 
-The engine and the plain-language text are shared by the Worker and the browser (`public/js/engine/`), which is why dragging through the week needs no server trip. The three sample poles use saved real readings, so they load instantly and cost no AI quota.
+The engine and the plain-language text are shared by the Worker and the browser (`public/js/engine/`), which is why dragging through the week needs no server trip. The three sample poles (Los Angeles County, San Francisco, Chicago) use saved real readings, so they load instantly and cost no AI quota.
 
 ### How accurate is it?
 
-Tested on 26 real sign photos from Wikimedia Commons, each checked at 4 fixed times (Mon 9:00 AM, Tue 8:45 AM, Sat 2:00 PM, Sun 3:00 AM) with a 60 minute stay, 104 answers in all, run 2026-10-24:
+Tested on 26 real sign photos from Wikimedia Commons, each checked at 4 fixed times (Mon 9:00 AM, Tue 8:45 AM, Sat 2:00 PM, Sun 3:00 AM in the week of Oct 19, 2026) with a 60 minute stay, 104 answers in all, run 2026-10-24:
 
 | Right answer | Said Not sure | Wrong NO | Wrong YES |
 |---|---|---|---|
-| 77 | 23 | 4 | 0 |
+| 81 | 19 | 4 | 0 |
 
-The hand-written expected answers are in `test/accuracy/expected.json` and every photo's result is in `test/accuracy/report.md`.
+The hand-written expected answers are in `test/accuracy/expected.json` and every photo's result is in `test/accuracy/report.md`. The first run of this version had 3 wrong YES on one photo (a lot open "5:00 PM to sunset"); the rules were made stricter and only that photo was read again. The report says exactly what changed.
 
 ## Run it yourself
 
@@ -52,7 +56,7 @@ npm run deploy   # deploys the Worker
 
 Scripts, run by hand against a deployed Worker:
 
-- `node scripts/capture-samples.mjs` reads the candidate sample poles and saves the ones whose answers match.
+- `node scripts/capture-samples.mjs [--save]` reads the candidate sample poles in `test/samples/poles.json` and saves the ones whose answers match the hand answers.
 - `node scripts/accuracy.mjs` runs the accuracy test and writes `public/data/accuracy.json` and `test/accuracy/report.md`. Readings are cached in `test/accuracy/readings/` so the free AI quota is spent once per photo.
 
 ### Project layout
@@ -78,9 +82,13 @@ All photos come from Wikimedia Commons and keep their own licenses (they are not
 
 Sample poles:
 
+- [Parking restriction signs in Alsace with Los Angeles County markings](https://commons.wikimedia.org/wiki/File:Parking_restriction_signs_in_Alsace_with_Los_Angeles_County_markings.jpg) by Jengod, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 - [SF parking sign](https://commons.wikimedia.org/wiki/File:SF_parking_sign.jpg) by Mrbeastmodeallday, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 - [Two "right lane buses only" signs - Chicago, IL - December 2021](https://commons.wikimedia.org/wiki/File:Two_%22right_lane_buses_only%22_signs_-_Chicago,_IL_-_December_2021.jpg) by AlphaBeta135, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-- [One-way and loading zone signs in Kent, Washington](https://commons.wikimedia.org/wiki/File:One-way_and_loading_zone_signs_in_Kent,_Washington.jpg) by Roc0ast3r, [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Cut off sign check (`test/samples/checks/`):
+
+- [Washington, D.C., parking signs 04](https://commons.wikimedia.org/wiki/File:Washington,_D.C.,_parking_signs_04.jpg) by Dada1960, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
 
 Accuracy test photos:
 

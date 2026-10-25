@@ -27,3 +27,17 @@ test("expected and actual verdicts come from the same engine", () => {
   assert.deepEqual(actualVerdicts({ error: "read_failed" }, photo, times, 60), ["failed", "failed"]);
   assert.deepEqual(expectedVerdicts({ verdicts: ["no", "yes"] }, times, 60), ["no", "yes"]);
 });
+
+test("season dates are judged in the dated test week", () => {
+  const photo = {
+    side: null,
+    signs: [{
+      text: "STREET CLEANING NO PARKING 7AM-9AM FRIDAYS APRIL 1-OCT 31", arrow: "none", readable: true,
+      rules: [{ kind: "no_parking", days: ["fri"], start: "07:00", end: "09:00", season: { from: "04-01", to: "10-31" } }],
+    }],
+  };
+  const fri = [{ day: "fri", time: "08:00" }];
+  assert.deepEqual(expectedVerdicts(photo, fri, 60, "2026-10-19"), ["no"]);
+  assert.deepEqual(expectedVerdicts(photo, fri, 60, "2026-11-02"), ["yes"]);
+  assert.deepEqual(expectedVerdicts(photo, fri, 60), ["unsure"]);
+});

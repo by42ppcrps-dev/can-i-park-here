@@ -1,6 +1,6 @@
 {
  "status": 200,
- "wallMs": 5146,
+ "wallMs": 5790,
  "signs": [
   {
    "id": 1,
@@ -19,7 +19,12 @@
      "limitMinutes": null,
      "metered": false,
      "note": "street cleaning",
-     "condition": "only some months of the year"
+     "condition": null,
+     "season": {
+      "from": "04-01",
+      "to": "10-31"
+     },
+     "largeOnly": false
     }
    ]
   },
@@ -45,21 +50,23 @@
      "limitMinutes": 120,
      "metered": false,
      "note": null,
-     "condition": null
+     "condition": null,
+     "season": null,
+     "largeOnly": false
     }
    ]
   }
  ],
  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
- "ms": 5110,
+ "ms": 5702,
  "usage": {
-  "prompt_tokens": 2722,
-  "completion_tokens": 248,
-  "total_tokens": 2970,
+  "prompt_tokens": 3075,
+  "completion_tokens": 293,
+  "total_tokens": 3368,
   "prompt_tokens_details": {
    "cached_tokens": 0
   },
-  "neurons": 85.97636413574219
+  "neurons": 98.11817932128906
  },
- "readAt": "2026-10-25T00:04:54.939Z"
+ "readAt": "2026-10-25T00:34:17.363Z"
 }

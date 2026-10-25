@@ -1,0 +1,74 @@
+{
+ "status": 200,
+ "wallMs": 8077,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING 9 AM - 5PM MON. - FRI. EXCEPT HOLIDAYS 1R PERMITS EXEMPT",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+     ],
+     "start": "09:00",
+     "end": "17:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "NO PARKING 1AM TO 6AM VEHICLES OVER 8 WIDE 7 1/2 HIGH 20 LONG RV Permits Exempt LOS ANGELES COUNTY CODE 15.64.075",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "01:00",
+     "end": "06:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": true
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 7883,
+ "usage": {
+  "prompt_tokens": 3075,
+  "completion_tokens": 304,
+  "total_tokens": 3379,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 98.96818542480469
+ },
+ "readAt": "2026-10-25T00:33:49.339Z"
+}

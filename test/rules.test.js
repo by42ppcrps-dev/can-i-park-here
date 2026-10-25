@@ -239,3 +239,16 @@ test("time formatting is 12 hour with AM and PM", () => {
   assert.equal(formatBlockTime(at("tue", 15, 15)), "Tue 3:15 PM");
   assert.equal(formatBlockTime(at("tue", 15, 15), false), "3:15 PM");
 });
+
+test("a sign that only says when parking is allowed is Not sure at other times", () => {
+  const s = signs({ text: "PUBLIC PARKING ALLOWED WEEKENDS", rules: [rule("free", ["sat", "sun"], "00:00", "24:00")] });
+  const w = buildWeek(s);
+  assert.equal(verdict(w, at("sat", 14), 60).result, "yes");
+  assert.equal(verdict(w, at("mon", 9), 60).result, "unsure");
+  assert.deepEqual(w[at("mon", 9)].reasons, ["outside"]);
+  // Free all week, or free next to a sign with other rules, is unchanged.
+  const all = buildWeek(signs({ text: "FREE PARKING", rules: [rule("free", ALL, "00:00", "24:00")] }));
+  assert.equal(all[at("mon", 9)].state, "free");
+  const mixed = buildWeek(signs({ text: "2 HOUR PARKING 9AM-6PM NO LIMIT 6PM-10PM", rules: [rule("time_limit", ALL, "09:00", "18:00", { limitMinutes: 120 }), rule("free", ALL, "18:00", "22:00")] }));
+  assert.equal(mixed[at("mon", 3)].state, "free");
+});

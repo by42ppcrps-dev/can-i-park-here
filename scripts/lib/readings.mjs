@@ -6,10 +6,10 @@ import { postPhoto } from "./post-photo.mjs";
 
 export const READINGS_DIR = "test/accuracy/readings";
 
-export async function getReading(file, photoPath, base, { refresh = false } = {}) {
-  const cache = `${READINGS_DIR}/${file.replace(/\.jpg$/i, ".json")}`;
+export async function getReading(file, photoPath, base, { refresh = false, dir = READINGS_DIR } = {}) {
+  const cache = `${dir}/${file.replace(/\.jpg$/i, ".json")}`;
   if (!refresh && existsSync(cache)) return JSON.parse(await readFile(cache, "utf8"));
-  await mkdir(READINGS_DIR, { recursive: true });
+  await mkdir(dir, { recursive: true });
   const out = await postPhoto(photoPath, base);
   const saved = { ...out, readAt: new Date().toISOString() };
   await writeFile(cache, JSON.stringify(saved, null, 1) + "\n");

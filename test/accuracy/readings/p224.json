@@ -1,17 +1,17 @@
 {
  "status": 200,
- "wallMs": 779,
+ "wallMs": 623,
  "signs": [],
  "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
- "ms": 740,
+ "ms": 588,
  "usage": {
-  "prompt_tokens": 2722,
+  "prompt_tokens": 3075,
   "completion_tokens": 7,
-  "total_tokens": 2729,
+  "total_tokens": 3082,
   "prompt_tokens_details": {
    "cached_tokens": 0
   },
-  "neurons": 67.3536376953125
+  "neurons": 76.01818084716797
  },
- "readAt": "2026-10-25T00:05:47.730Z"
+ "readAt": "2026-10-25T00:35:40.498Z"
 }

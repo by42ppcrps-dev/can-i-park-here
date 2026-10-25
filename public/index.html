@@ -30,6 +30,7 @@
     <symbol id="i-left" viewBox="0 0 24 24"><path d="M20 12H5m0 0l6-6m-6 6l6 6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-right" viewBox="0 0 24 24"><path d="M4 12h15m0 0l-6-6m6 6l-6 6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-both" viewBox="0 0 24 24"><path d="M3.5 12h17M3.5 12l5-5m-5 5l5 5m12-5l-5-5m5 5l-5 5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-noarrow" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M6.8 17.2L17.2 6.8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
     <symbol id="i-back" viewBox="0 0 24 24"><path d="M10 6l-6 6 6 6M4.5 12H20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-now" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.3-5.4M4 4v4h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="logo" viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" rx="12" fill="#1747A6"/><rect x="8.5" y="8.5" width="47" height="47" rx="8.5" fill="none" stroke="#fff" stroke-width="3"/><path d="M22 47V17h11.5a9.5 9.5 0 0 1 0 19H22" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round"/><circle cx="49" cy="49" r="13" fill="#1E7B45" stroke="#F7F5F0" stroke-width="3.5"/><path d="M43 49.3l4 4 8-8.6" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -71,9 +72,9 @@
           <div class="demo-card">
             <span class="demo-tag">Example</span>
             <div class="demo-verdict"><svg class="ico"><use href="#i-check"/></svg><span>YES</span></div>
-            <p class="demo-line">Until Tue 8:30 AM</p>
+            <p class="demo-line">Until Mon 9:00 AM</p>
             <div class="demo-grid" id="demo-grid"></div>
-            <div class="demo-legend"><span class="sw sw-free"></span>Free <span class="sw sw-limited"></span>2H <span class="sw sw-no"></span>No parking</div>
+            <div class="demo-legend"><span class="sw sw-free"></span>Free <span class="sw sw-no"></span>No parking</div>
           </div>
         </div>
       </div>
@@ -149,7 +150,7 @@
             </div>
 
             <div class="when-row">
-              <p class="when"><span class="when-label">For a stay from</span> <strong id="when-time"></strong></p>
+              <p class="when"><span class="for-car">For a regular car</span> <span class="when-label">Staying from</span> <strong id="when-time"></strong></p>
               <button type="button" class="btn btn-small" id="now-btn" hidden>
                 <svg class="ico ico-sm" aria-hidden="true"><use href="#i-now"/></svg> Back to now
               </button>
@@ -195,10 +196,11 @@
             <img id="answer-photo" class="answer-photo" alt="Your photo of the sign pole">
             <div>
               <h2 id="cards-title">Signs we read</h2>
-              <p class="signs-sub">Top of the pole first. Switch off any that look wrong.</p>
+              <p class="signs-sub">Top of the pole first. Tap an arrow to fix it, or switch off any sign that looks wrong.</p>
             </div>
           </div>
           <ol class="cards" id="cards"></ol>
+          <p class="visually-hidden" id="cards-live" aria-live="polite"></p>
           <button type="button" class="btn btn-ghost btn-wide" id="again-btn">
             <svg class="ico" aria-hidden="true"><use href="#i-back"/></svg> Check another pole
           </button>

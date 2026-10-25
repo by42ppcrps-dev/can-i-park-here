@@ -1,15 +1,17 @@
 # Accuracy report
 
-Run 2026-10-24 against https://can-i-park-here.lumegridai.workers.dev (Worker version c59fff6e-5707-4283-bca9-ab6083c001e9).
+Run 2026-10-24 against https://can-i-park-here.lumegridai.workers.dev (Worker version 9cf0320f-7414-4c06-a4d3-93057a48e277).
 26 photos, 4 test times each (Mon 9:00 AM, Tue 8:45 AM, Sat 2:00 PM, Sun 3:00 AM), 60 minute stay: 104 checks.
 
 | Right | Not sure | Wrong NO | Wrong YES |
 |---|---|---|---|
-| 77 | 23 | 4 | 0 |
+| 81 | 19 | 4 | 0 |
 
 How a check is scored: the expected verdict is the rules engine's answer on a hand-written reading of the photo (`expected.json`); the actual verdict is the same engine on the live reading. Same verdict is right. The app saying Not sure, finding no signs, or failing to read counts as Not sure. Any other YES is a wrong YES; any other NO is a wrong NO. For photos with arrows, the car's side is set as listed in `expected.json`.
 
 Prompt and validator changes made after reading the ground truth and before this run, all general and all making answers stricter or skipping signs that never restrict an everyday driver: skip angle parking signs and exemption panels; arrows judged by the arrowhead; conditions such as snow, school days, events, months, and "when" make a rule Not sure; a sign whose arrow points away from the car is Not sure instead of ignored.
+
+Revision round 1 (after hands-on feedback): rules may carry printed season dates (checked against the sign text) and a large vehicles only flag (trusted only when the text names big vehicles); signs cut off by the photo edge are reported as unreadable; test times are dated (week of Mon Oct 19, 2026) so season dates are judged on real dates; `expected.json` changed only for p23, whose street cleaning sign prints APRIL 1-OCT 31. The first rerun of all 26 photos had 3 wrong YES on p280 (hours that run to sunset). Two stricter changes followed: sunrise, sunset, dusk, and dawn make a rule Not sure, and a sign that only says when parking is allowed is Not sure at all other times. Only p280 was read again; the second change is in the rules engine, so it needed no new reading.
 
 ## p329.jpg (Quebec City, QC)
 
@@ -23,9 +25,9 @@ Note: The signal light and the snow ban are one rule that applies only when the 
 | Sat 2:00 PM | yes | yes | right |
 | Sun 3:00 AM | unsure | unsure | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 8810 ms):
-- 1. DANS CETTE RUE 23H - 6H30 LORSQUE LE FEU CLIGNOTE DENEIGEMENT ET ENTRETIEN REMORQUAGE INFORMATION 514-6566: No parking 11:00 PM to 6:30 AM, only under a condition on the sign
-- 2. P 60 min 9h-12h 13h30-17h LUN à VEN (arrow both): 1 hour parking Mon to Fri 9:00 AM to 5:00 PM; 1 hour parking Mon to Fri 9:00 AM to 12:00 PM
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 8761 ms):
+- 1. INTERDICTION DE STATIONNER DANS CETTE RUE 23H - 6H30 LORSQUE LE FEU CLIGNOTE DENEIGEMENT ET ENTRETIEN REMORQUAGE INFORMATION 641-6566: No parking 11:00 PM to 6:30 AM, tow away, only under a condition on the sign
+- 2. P 60 min 9h-12h 13h30-17h LUN A VEN (arrow both): 1 hour parking Mon to Fri 9:00 AM to 5:00 PM; 1 hour parking Mon to Fri 9:00 AM to 12:00 PM
 
 ## p238.jpg (Chicago, IL)
 
@@ -39,16 +41,16 @@ Note: Car on the left of the right-hand pole (the pay box side). No hours are pr
 | Sat 2:00 PM | unsure | unsure | right |
 | Sun 3:00 AM | unsure | unsure | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 11190 ms):
-- 1. TOW ZONE (arrow right): No parking anytime, tow away
-- 2. PAY AT PAY BOX OR SIGN UP AT ParkChicago.com FOR MOBILE PAY ZONE 437 218 (arrow right): Paid parking anytime
-- 3. PAY TO PARK AT PAY BOX OR SIGN UP AT ParkChicago.com FOR MOBILE PAY ZONE 437 218: Paid parking anytime
-- 4. THIS ZONE IS SUBJECT TO SURGE PRICING AND HOURS ON STADIUM EVENT DAYS. FOR INFO: CALL 311 OR VISIT CHICAGOMETERS.COM: Not sure: no parking rule found on this sign
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 10987 ms):
+- 1. PAY AT PAY BOX OR SIGN UP AT ParkChicago.com FOR MOBILE PAY ZONE 437 218 (arrow right): Paid parking anytime
+- 2. PAY TO PARK AT PAY BOX OR SIGN UP AT ParkChicago.com FOR MOBILE PAY ZONE 437 218: Paid parking anytime
+- 3. THIS ZONE IS SUBJECT TO SURGE PRICING AND HOURS ON STADIUM EVENT DAYS. FOR INFO: CALL 311 OR VISIT CHICAGOMETERS.COM: Not sure: no parking rule found on this sign
+- 4. TOW ZONE (arrow right): No parking anytime, tow away
 
 ## p23.jpg (Chicago, IL)
 
 Photo: [Street Cleaning and Two Hour Parking signs (37412426774)](https://commons.wikimedia.org/wiki/File:Street_Cleaning_and_Two_Hour_Parking_signs_(37412426774).jpg) by Eric Fischer, CC BY 2.0. Car side: left.
-Note: Car on the left, the side the 2 hour sign covers.
+Note: Car on the left, the side the 2 hour sign covers. Street cleaning runs April 1 to Oct 31, as printed.
 
 | Time | Expected | Live reading | Result |
 |---|---|---|---|
@@ -57,8 +59,8 @@ Note: Car on the left, the side the 2 hour sign covers.
 | Sat 2:00 PM | yes | unsure | Not sure |
 | Sun 3:00 AM | yes | yes | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 5110 ms):
-- 1. STREET CLEANING NO PARKING 7 AM - 9 AM FRIDAYS APRIL 1 - OCT 31 TOW ZONE: No parking Fri 7:00 to 9:00 AM, street cleaning, only some months of the year
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 5702 ms):
+- 1. STREET CLEANING NO PARKING 7 AM - 9 AM FRIDAYS APRIL 1 - OCT 31 TOW ZONE: No parking Fri 7:00 to 9:00 AM, Apr 1 to Oct 31, street cleaning
 - 2. TWO HOUR PARKING 9AM-10PM MON-SAT (arrow right): 2 hour parking Mon to Sat 9:00 AM to 10:00 PM
 
 ## p355.jpg (New Orleans, LA)
@@ -73,7 +75,7 @@ Note: Car on the left, the freight zone side.
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 5354 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 4891 ms):
 - 1. NO PARKING FREIGHT ZONE 24 HOURS (arrow right): No parking anytime
 - 2. MUSICIAN LOADING ZONE: Restricted anytime
 
@@ -84,13 +86,13 @@ Note: The WTC panel only exempts construction vehicles.
 
 | Time | Expected | Live reading | Result |
 |---|---|---|---|
-| Mon 9:00 AM | no | unsure | Not sure |
-| Tue 8:45 AM | no | unsure | Not sure |
-| Sat 2:00 PM | no | unsure | Not sure |
-| Sun 3:00 AM | no | unsure | Not sure |
+| Mon 9:00 AM | no | no | right |
+| Tue 8:45 AM | no | no | right |
+| Sat 2:00 PM | no | no | right |
+| Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3308 ms):
-- 1. NO STANDING ANYTIME (arrow right): No standing anytime
+Live reading (@cf/mistralai/mistral-small-3.1-24b-instruct, 5909 ms):
+- 1. NO STANDING ANYTIME (arrow both): No standing anytime, temporary construction regulation
 
 ## p241.jpg (Chicago, IL)
 
@@ -104,7 +106,7 @@ Note: Bus lane signs are not parking rules.
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2964 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2811 ms):
 - 1. NO PARKING ANY TIME: No parking anytime
 
 ## p356.jpg (Kent, WA)
@@ -119,7 +121,7 @@ Note: One way sign is not a parking rule.
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3714 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2672 ms):
 - 1. NO PARKING LOADING ZONE: No parking anytime, loading zone
 
 ## p7.jpg (San Jose, CA)
@@ -134,8 +136,8 @@ Note: Homemade sign, read as written.
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3219 ms):
-- 1. NO PARKING FIRE LANE NO STOPPING PUT TRASH IN ITS PLACE CLEAN UP AFTER YOUR DOG PONGALA BASURA EN SU LUGAR LIMPIEZA TRAS SU PERRO: No parking anytime, fire lane
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 4375 ms):
+- 1. NO PARKING FIRE LANE NO STOPPING PUT TRASH IN ITS PLACE CLEAN UP AFTER YOUR DOG PONGA LA BASURA EN SU LUGAR LIMPIEZA TRAS SU PERRO: No parking anytime, fire lane
 
 ## p291.jpg (San Francisco, CA)
 
@@ -149,7 +151,7 @@ Note: Park at 90 degrees is how to park, not a rule.
 | Sat 2:00 PM | yes | yes | right |
 | Sun 3:00 AM | yes | yes | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2981 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2637 ms):
 - 1. 2 HOUR PARKING 8A.M. TO 9 P.M. MON THRU SAT EXCEPT VEHICLES WITH AREA A PERMITS: 2 hour parking Mon to Sat 8:00 AM to 9:00 PM
 
 ## p53.jpg (Venice (Los Angeles), CA)
@@ -163,7 +165,7 @@ Photo: [Have a nice day sign below no public parking sign, Venice California](ht
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2758 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2754 ms):
 - 1. NO PUBLIC PARKING: No parking anytime
 
 ## p167.jpg (Chicago, IL)
@@ -173,13 +175,13 @@ Note: Only on game nights, so Not sure 5 to 10 PM; none of the test times fall t
 
 | Time | Expected | Live reading | Result |
 |---|---|---|---|
-| Mon 9:00 AM | yes | unsure | Not sure |
-| Tue 8:45 AM | yes | unsure | Not sure |
-| Sat 2:00 PM | yes | unsure | Not sure |
-| Sun 3:00 AM | yes | unsure | Not sure |
+| Mon 9:00 AM | yes | yes | right |
+| Tue 8:45 AM | yes | yes | right |
+| Sat 2:00 PM | yes | yes | right |
+| Sun 3:00 AM | yes | yes | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 5148 ms):
-- 1. CUBS' NIGHT GAMES PERMIT PARKING 5PM-10PM EXCEPT WITH PERMIT LV2 TOW ZONE: Not sure: days are missing or unclear
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3866 ms):
+- 1. CUBS' NIGHT GAMES PERMIT PARKING 5PM-10PM EXCEPT WITH PERMIT LV2 TOW ZONE: Permit holders only 5:00 to 10:00 PM, tow away
 
 ## p239.jpg (Chicago, IL)
 
@@ -193,8 +195,8 @@ Note: No hours printed, so paid parking all week.
 | Sat 2:00 PM | yes | unsure | Not sure |
 | Sun 3:00 AM | yes | unsure | Not sure |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2444 ms):
-- 1. PAY TO PARK (arrow left): Paid parking anytime
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3596 ms):
+- 1. PAY TO PARK CITY OF CHICAGO (arrow left): Paid parking anytime
 
 ## p185.jpg (Pismo Beach, CA)
 
@@ -207,8 +209,8 @@ Photo: [Pismo Beach (California, USA), Sign -- 2012 -- 4](https://commons.wikime
 | Sat 2:00 PM | yes | yes | right |
 | Sun 3:00 AM | yes | yes | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3039 ms):
-- 1. WELCOME PISMO BEACH PUBLIC PARKING PAY TO PARK 10AM-6PM DAILY PLEASE PAY AT PAY STATION: Paid parking 10:00 AM to 6:00 PM
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3759 ms):
+- 1. WELCOME PISMO BEACH PUBLIC PARKING PAY TO PARK 10AM-6PM DAILY PLEASE PAY AT PAY STATION: Paid parking, 8 hour limit 10:00 AM to 6:00 PM
 
 ## p237.jpg (Chicago, IL)
 
@@ -221,7 +223,7 @@ Photo: [No Parking No Dumping (6078301511)](https://commons.wikimedia.org/wiki/F
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2477 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 5218 ms):
 - 1. NO PARKING NO DUMPING VIOLATORS WILL BE PROSECUTED CITY OF CHICAGO: No parking anytime
 
 ## p297.jpg (San Francisco, CA)
@@ -235,7 +237,7 @@ Photo: [San Francisco No Parking Graffitist 2081940897 o](https://commons.wikime
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3459 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3172 ms):
 - 1. NO PARKING AT ANY TIME: No parking anytime
 
 ## p95.jpg (New York, NY)
@@ -244,13 +246,13 @@ Photo: [At New York City 2024 009](https://commons.wikimedia.org/wiki/File:At_Ne
 
 | Time | Expected | Live reading | Result |
 |---|---|---|---|
-| Mon 9:00 AM | no | no | right |
-| Tue 8:45 AM | no | no | right |
-| Sat 2:00 PM | no | no | right |
-| Sun 3:00 AM | no | no | right |
+| Mon 9:00 AM | no | unsure | Not sure |
+| Tue 8:45 AM | no | unsure | Not sure |
+| Sat 2:00 PM | no | unsure | Not sure |
+| Sun 3:00 AM | no | unsure | Not sure |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 1961 ms):
-- 1. NO STANDING Anytime (arrow both): No standing anytime
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2848 ms):
+- 1. NO STANDING Anytime (arrow both): Not sure: days are missing or unclear
 
 ## p134.jpg (unknown (photographer based in Seattle, WA))
 
@@ -263,7 +265,7 @@ Photo: [24 Hour Parking (3822897780)](https://commons.wikimedia.org/wiki/File:24
 | Sat 2:00 PM | yes | yes | right |
 | Sun 3:00 AM | yes | yes | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2762 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3117 ms):
 - 1. 24 HOUR PARKING MAXIMUM STRICTLY ENFORCED VEHICLES EXCEEDING THE 24-HOUR LIMIT WILL BE TOWED: 24 hour parking anytime, tow away
 
 ## p143.jpg (unknown)
@@ -278,8 +280,8 @@ Note: Applies only on one day the app cannot know, so Not sure.
 | Sat 2:00 PM | unsure | unsure | right |
 | Sun 3:00 AM | unsure | unsure | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2323 ms):
-- 1. NO PARKING FOR MORE THAN 2 HRS DAY OF ECLIPSE: 2 hour parking anytime, day of eclipse
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 1874 ms):
+- 1. NO PARKING FOR MORE THAN 2 HRS DAY OF ECLIPSE: 2 hour parking anytime, Day of Eclipse
 
 ## p289.jpg (San Francisco International Airport (San Mateo County), CA)
 
@@ -293,8 +295,8 @@ Note: No TNC parking only restricts ride hail cars, so nothing limits an everyda
 | Sat 2:00 PM | yes | no | WRONG NO |
 | Sun 3:00 AM | yes | no | WRONG NO |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3055 ms):
-- 1. NO TNC PARKING OR WAITING: No standing anytime
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2993 ms):
+- 1. No TNC Parking or Waiting SFIA REG. 4.7(B)(22): No stopping anytime
 
 ## p224.jpg (Chicago, IL)
 
@@ -307,7 +309,7 @@ Photo: [20070822 Lincoln Towing Sign w new prices](https://commons.wikimedia.org
 | Sat 2:00 PM | no | no_signs | Not sure |
 | Sun 3:00 AM | no | no_signs | Not sure |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 740 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 588 ms):
 - No signs found.
 
 ## p69.jpg (Claremont, CA (inferred from storefront))
@@ -321,7 +323,7 @@ Photo: [Virus War Casualty](https://commons.wikimedia.org/wiki/File:Virus_War_Ca
 | Sat 2:00 PM | yes | yes | right |
 | Sun 3:00 AM | yes | yes | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2834 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2760 ms):
 - 1. 2 HOUR PARKING 9A.M. TO 6 P.M. MONDAY - FRIDAY: 2 hour parking Mon to Fri 9:00 AM to 6:00 PM
 
 ## p294.jpg (San Francisco, CA)
@@ -336,7 +338,7 @@ Note: Park at 90 degrees is how to park, not a rule. Best possible app result: Y
 | Sat 2:00 PM | yes | no_signs | right |
 | Sun 3:00 AM | yes | no_signs | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 490 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 565 ms):
 - No signs found.
 
 ## p288.jpg (likely San Francisco, CA (curb stencil))
@@ -350,7 +352,7 @@ Photo: [No Parking 2 (Unsplash)](https://commons.wikimedia.org/wiki/File:No_Park
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2627 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 2754 ms):
 - 1. NO PARKING: No parking anytime
 
 ## p371.jpg (Framingham, MA)
@@ -364,8 +366,8 @@ Photo: [MassDOT Park & Ride Parking Notice, Framingham MA, 2025-11-19](https://c
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | no | no | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3726 ms):
-- 1. CARPOOLING & BUS PASSENGERS ONLY NO VEHICLE STORAGE NO CAMPERS NO BOX TRUCKS VIOLATORS ASSUME ALL RELATED EXPENSES 21 DAY MAXIMUM: Restricted anytime
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 6692 ms):
+- 1. CARPOOLING & BUS PASSENGERS ONLY NO VEHICLE STORAGE NO CAMPERS NO BOX TRUCKS VIOLATORS ASSUME ALL RELATED EXPENSES 21 DAY MAXIMUM PARK & RIDE PARKING NOTICE massDOT: Restricted anytime; No standing anytime; No parking anytime
 
 ## p350.jpg (San Jose, CA)
 
@@ -378,7 +380,7 @@ Photo: [Freight Loading Zone sign on sidewalk at Post Street and South San Pedro
 | Sat 2:00 PM | no | no | right |
 | Sun 3:00 AM | yes | yes | right |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3555 ms):
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 3726 ms):
 - 1. FREIGHT LOADING ZONE 7A.M.-6P.M. EXCEPT SUNDAY & HOLIDAY: Commercial vehicles only Mon to Sat 7:00 AM to 6:00 PM
 
 ## p280.jpg (South San Francisco, CA)
@@ -393,5 +395,5 @@ Note: Private lot open to the public weekday evenings 5 PM to sunset and weekend
 | Sat 2:00 PM | yes | unsure | Not sure |
 | Sun 3:00 AM | no | unsure | Not sure |
 
-Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 4996 ms):
-- 1. GENENTECH PRIVATE PROPERTY PUBLIC PARKING ALLOWED EVENINGS & WEEKENDS EVENING PARKING (5:00 PM TO SUNSET) WEEKEND PARKING (SUNRISE TO SUNSET): Not sure: times are missing or unclear
+Live reading (@cf/meta/llama-4-scout-17b-16e-instruct, 4323 ms):
+- 1. GENENTECH PRIVATE PROPERTY PUBLIC PARKING ALLOWED EVENINGS & WEEKENDS EVENING PARKING (5:00 PM TO SUNSET) WEEKEND PARKING (SUNRISE TO SUNSET): Free parking Mon to Fri 5:00 PM to 12:00 AM, hours set by sunrise or sunset; Free parking Sat, Sun, all day, hours set by sunrise or sunset

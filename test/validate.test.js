@@ -164,3 +164,11 @@ test("ruleless exemption panels are left out; other ruleless signs stay Not sure
   assert.deepEqual(r.signs.map((s) => s.id), [1, 2]);
   assert.equal(r.signs[1].readable, false);
 });
+
+test("hours that run to sunset or from sunrise are not fixed times, so they are Not sure", () => {
+  const r = validateReading({ signs: [{
+    text: "PUBLIC PARKING ALLOWED EVENINGS (5:00 PM TO SUNSET) WEEKENDS (SUNRISE TO SUNSET)", arrow: "none", readable: true,
+    rules: [{ kind: "free", days: ["sat", "sun"], start: "00:00", end: "24:00" }],
+  }] });
+  assert.equal(r.signs[0].rules[0].condition, "hours set by sunrise or sunset");
+});

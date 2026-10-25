@@ -1,0 +1,64 @@
+{
+ "status": 200,
+ "wallMs": 4383,
+ "signs": [
+  {
+   "id": 1,
+   "text": "2 HOUR PARKING 9:30 AM-4 PM MONDAY-FRIDAY 7:00 AM-6:30 PM SATURDAY NO TIME LIMIT PARKING 6:30 PM-10 PM MON-SAT PAY TO PARK",
+   "readable": true,
+   "arrow": "left",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+     ],
+     "start": "09:30",
+     "end": "16:00",
+     "limitMinutes": 120,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    },
+    {
+     "kind": "free",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+     ],
+     "start": "18:30",
+     "end": "22:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 4214,
+ "usage": {
+  "prompt_tokens": 3011,
+  "completion_tokens": 158,
+  "total_tokens": 3169,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 86.1154556274414
+ },
+ "readAt": "2026-10-25T00:32:53.695Z"
+}

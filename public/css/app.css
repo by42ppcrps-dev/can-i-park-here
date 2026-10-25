@@ -194,6 +194,7 @@ input[type="file"]:focus-visible + .btn, .photo-actions input:focus-visible { ou
 .when-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
 .when { font-size: 1.05rem; }
 .when-label { color: var(--ink-2); }
+.for-car { display: inline-block; margin-right: 6px; font-size: .78rem; font-weight: 900; text-transform: uppercase; letter-spacing: .05em; padding: 3px 8px; border-radius: 6px; background: var(--paper-2); color: var(--ink-2); vertical-align: 2px; }
 .when strong { font-size: 1.2rem; font-weight: 850; }
 
 .chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 1.7fr); gap: 6px; margin-top: 14px; align-items: center; }
@@ -305,8 +306,20 @@ input[type="file"]:focus-visible + .btn, .photo-actions input:focus-visible { ou
 .card-unsure .q { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--unsure); border: 2px solid var(--ink); }
 .card-unsure .q svg { width: 16px; height: 16px; }
 .card-problem { font-size: .9rem; color: var(--ink-2); margin-top: 2px; }
-.card-arrow { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: .85rem; font-weight: 800; padding: 3px 9px; border: 2px solid var(--ink); border-radius: 999px; }
-.card-arrow svg { width: 16px; height: 16px; }
+.card-arrow {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; min-height: 36px; padding: 4px 6px 4px 11px;
+  font: inherit; font-size: .88rem; font-weight: 800; color: var(--ink); background: var(--card);
+  border: 2px solid var(--ink); border-radius: 999px; cursor: pointer; transition: background .15s ease, transform .1s ease;
+}
+.card-arrow:hover { background: var(--paper-2); }
+.card-arrow:active { transform: scale(.97); }
+.card-arrow:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.card-arrow svg { width: 16px; height: 16px; flex: none; }
+.card-arrow-change { font-size: .74rem; font-weight: 900; text-transform: uppercase; letter-spacing: .05em; padding: 3px 8px; border-radius: 999px; background: var(--paper-2); color: var(--ink-2); }
+.card-arrow.fixed { border-color: var(--sign-blue); }
+.card-arrow.fixed .card-arrow-change { background: var(--sign-blue); color: #fff; }
+.card.k-other { --accent: #8a847a; }
+.card-rule.large { font-weight: 750; color: var(--ink); }
 .card-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); gap: 10px; }
 .tag { font-size: .78rem; font-weight: 900; text-transform: uppercase; letter-spacing: .05em; padding: 3px 8px; border-radius: 6px; }
 .tag-off { background: var(--paper-2); color: var(--ink-2); }
