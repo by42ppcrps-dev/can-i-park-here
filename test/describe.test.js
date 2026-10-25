@@ -39,6 +39,12 @@ test("verdict lines match the PRD wording", () => {
   const free = signs({ rules: [rule("free", DAYS, "00:00", "24:00")] });
   assert.equal(describeVerdict(verdict(buildWeek(free), 0, 60), free, 0).line, "YES, no limits found this week");
 
+  const weekdays = signs({ rules: [rule("time_limit", ["mon", "tue", "wed", "thu", "fri"], "09:00", "18:00", { limitMinutes: 120 })] });
+  const sat = at("sat", 18, 0);
+  assert.equal(describeVerdict(verdict(buildWeek(weekdays), sat, 60), weekdays, sat).line, "YES, 2 hour limit from Mon 9:00 AM");
+  const paid = signs({ rules: [rule("meter", ["mon"], "09:00", "18:00")] });
+  assert.equal(describeVerdict(verdict(buildWeek(paid), sat, 60), paid, sat).line, "YES, paid parking from Mon 9:00 AM");
+
   const anytime = signs({ rules: [rule("no_parking", DAYS, "00:00", "24:00")] });
   assert.equal(describeVerdict(verdict(buildWeek(anytime), 0, 60), anytime, 0).line, "NO, no parking anytime");
 

@@ -197,11 +197,15 @@ export function verdict(week, startIndex, stayMinutes) {
 
   // YES. Until the next block that is not allowed or not sure.
   const next = scan(week, start + 1, WEEK - 1, (x) => x.state === "no" || x.state === "unsure");
+  // Nothing stops you all week, but a time limit may start later: name it.
+  const nextLimit = !touchedLimit && !next ? scan(week, start + 1, WEEK - 1, (x) => x.state === "limited") : null;
   const causes = touchedLimit ? touchedLimit.causes : [];
   return {
     result: "yes", why: touchedLimit ? "limited" : next ? "until" : "all_week",
     atIndex: start, untilIndex: next ? next.i : null, causes, refs: touchedLimit ? touchedLimit.refs : [], reasons: [],
     limitMinutes: touchedLimit ? touchedLimit.limitMinutes : null, metered: touchedLimit ? touchedLimit.metered : false,
+    nextLimitIndex: nextLimit ? nextLimit.i : null,
+    nextLimit: nextLimit ? { limitMinutes: week[nextLimit.i].limitMinutes, metered: week[nextLimit.i].metered } : null,
     block: week[start],
   };
 }

@@ -115,7 +115,10 @@ export function describeVerdict(v, signs, startIndex) {
     if (v.metered) parts.push("pay the meter");
     line = `YES, ${parts.join(", ")}`;
   } else if (v.why === "until") line = `YES, until ${when(v.untilIndex, startIndex)}`;
-  else line = "YES, no limits found this week";
+  else if (v.nextLimit) {
+    const what = v.nextLimit.limitMinutes ? `${formatLimit(v.nextLimit.limitMinutes)} limit` : "paid parking";
+    line = `YES, ${what} from ${when(v.nextLimitIndex, startIndex)}`;
+  } else line = "YES, no limits found this week";
   return { word: "YES", line, tone: "yes" };
 }
 

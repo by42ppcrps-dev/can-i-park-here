@@ -71,7 +71,7 @@ Build mode: fast (Matt's standing choice, "every step verified and committed"; r
   Learner check: Look at the accuracy card and at `test/accuracy/report.md`, and decide whether the numbers are fair to show publicly.
   Commit: `Accuracy run on real photos and the accuracy card`
 
-- [ ] **7. Anyone can understand, run, and reuse it**
+- [x] **7. Anyone can understand, run, and reuse it**
   Becomes usable: README (what it is, live link, how to run, how it works, credits), MIT LICENSE, final deploy.
   Why now: Last, because it describes what was actually built and the measured numbers.
   PRD ref: `prd.md > Disclaimer and Privacy`, `prd.md > Product Decisions`
@@ -118,3 +118,5 @@ Activity mode: not started
 - Sample poles are p291 (San Francisco, 2 hour zone), p241 (Chicago, bus lane pole), p356 (Kent, WA, loading zone): the multi-sign photos the model read exactly right. The higher demo quality poles (p329 Quebec, p355 New Orleans, p23 Chicago) matched on verdicts but had visible misreads (a 9 to 12 and 1:30 to 5 window read as 9 to 5; reversed arrows), so they were not used. Each sample uses one cached live reading shared with the accuracy run, so the quota was spent once per photo.
 - The ground truth set has 26 photos (the labeler's strict legibility rule), not about 30; all 26 are in the accuracy run.
 - Accuracy test times are Mon 9:00 AM, Tue 8:45 AM, Sat 2:00 PM, Sun 3:00 AM (4 per photo, per the operator notes) instead of 3. Expected verdicts are the engine's answer on a hand-written reading, so conditions the app cannot check (snow light, game nights, eclipse day) are expected to be Not sure. Result on 104 checks: 77 right, 23 Not sure, 4 wrong NO, 0 wrong YES; no stricter rerun was needed.
+- A YES with nothing blocking all week now names a time limit that starts later ("YES, 2 hour limit from Mon 9:00 AM") instead of "no limits found this week". The final live check on a weekday-only 2 hour sign on a Saturday showed the old line contradicting the card.
+- Hands-on feedback is pending. Matt's operator does the hands-on checks after this first full build pass and feeds one revision round; nothing has been reported yet.
