@@ -42,7 +42,7 @@ Tested on 26 real sign photos from Wikimedia Commons, each checked at 4 fixed ti
 
 The hand-written expected answers are in `test/accuracy/expected.json` and every photo's result is in `test/accuracy/report.md`. The first run of this version had 3 wrong YES on one photo (a lot open "5:00 PM to sunset"); the rules were made stricter and only that photo was read again. The report says exactly what changed.
 
-Frozen holdout (Oct 24, 2026): 10 new stacked-sign photos never used during development, picked and labeled by me before the first reading, with no prompt or code changes and no reruns, 40 checks: 33 right (7 of them a correct Not sure), 4 Not sure, 3 wrong NO, 0 wrong YES. The 3 wrong NO were one San Diego park lot, where a general park rules panel was read as no parking at all hours; the 4 Not sure were one New Orleans pole where a down arrow was read as pointing right. Details, photos, and readings are in `test/holdout/`.
+Frozen holdout (Oct 24, 2026): 10 new stacked-sign photos never used during development, picked and labeled by me before the first reading, with no prompt or code changes and no reruns. Of 40 checks, the 33 with a definite answer came out 26 right, 4 Not sure, 3 wrong NO, 0 wrong YES; the other 7 were correctly Not sure. Where YES was correct (14 checks) it said YES 7 times, and it never said YES wrongly. The 3 wrong NO were one San Diego park lot, where a general park rules panel was read as no parking at all hours; the 4 Not sure were one New Orleans pole where a down arrow was read as pointing right. Details, photos, and readings are in `test/holdout/`.
 
 ## Run it yourself
 

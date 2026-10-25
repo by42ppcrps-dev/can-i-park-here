@@ -7,7 +7,9 @@ Run 2026-10-24 against https://can-i-park-here.lumegridai.workers.dev (Worker ve
 |---|---|---|---|
 | 33 | 4 | 3 | 0 |
 
-How a check is scored: the expected verdict is the rules engine's answer on a hand-written reading of the photo (`expected.json`); the actual verdict is the same engine on the live reading. Same verdict is right. The app saying Not sure, finding no signs, or failing to read counts as Not sure. Any other YES is a wrong YES; any other NO is a wrong NO. For photos with arrows, the car's side is set as listed in `expected.This is the frozen holdout: 10 stacked-sign photos from Wikimedia Commons that were never used while building or tuning the app. Photos were picked and expected answers hand-written by me before the first live reading (see `FROZEN.txt` for the commit and file hashes taken at that moment). No prompt, validator, or rules engine change was made for this run; it used the same live Worker version as the main accuracy test. Nothing was rerun.
+How a check is scored: the expected verdict is the rules engine's answer on a hand-written reading of the photo (`expected.json`); the actual verdict is the same engine on the live reading. Same verdict is right. The app saying Not sure, finding no signs, or failing to read counts as Not sure. Any other YES is a wrong YES; any other NO is a wrong NO. For photos with arrows, the car's side is set as listed in `expected.json`.
+
+This is the frozen holdout: 10 stacked-sign photos from Wikimedia Commons that were never used while building or tuning the app. Photos were picked and expected answers hand-written by me before the first live reading (see `FROZEN.txt` for the commit and file hashes taken at that moment). No prompt, validator, or rules engine change was made for this run; it used the same live Worker version as the main accuracy test. Nothing was rerun. The run used a copy of the repo with these files in `test/accuracy/`, so `FROZEN.txt` lists them under that path; they were then copied here unchanged and the hashes still match.
 
 ## q01.jpg (Cambridge, MA)
 

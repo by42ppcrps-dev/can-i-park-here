@@ -18,3 +18,6 @@ a62d0e53457e6469a284313697d8eaecedba28bcb7b5b48d04b4188e515daf39  public/js/engi
 662041f709e9970bbda706469633efdf6d14810d9474a4268a852b891e5e7185  src/prompt.js
 61de4acbc17119e8165e768c43aaed4ac337a30c5cdd918fedc944dfea62403e  src/read-signs.js
 156ad6f1d2659f9ce4f83205e2762169f05b4a3f163672b13e0520780ee19d0f  src/worker.js
+
+Note: the run used a repo copy with these files at test/accuracy/; they were copied to test/holdout/ unchanged.
+credits.json was edited after the freeze for one artist name only ("Erica Fischer" -> "Erica _ Fischer", matching Commons), so its hash differs; expected.json and all 10 photos match.
