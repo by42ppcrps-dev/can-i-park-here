@@ -61,7 +61,7 @@ Build mode: fast (Matt's standing choice, "every step verified and committed"; r
   Learner check: Tap each sample pole and check the cards against the photo.
   Commit: `Three real sample poles with saved readings and credits`
 
-- [ ] **6. An honest accuracy card**
+- [x] **6. An honest accuracy card**
   Becomes usable: The start view shows "Tested on N real sign photos" with real counts (right, Not sure, wrong NO, wrong YES) and the test date.
   Why now: Measures the reading half that tests can't prove; needs the deployed reader and ground truth. Runs once to protect the free AI quota.
   PRD ref: `prd.md > Accuracy Card`
@@ -117,3 +117,4 @@ Activity mode: not started
 - Prompt: skip angle parking and exemption panels, judge arrows by the arrowhead, accept French text. The validator leaves out ruleless panels starting with EXCEPT (they only loosen rules for some vehicles) and no longer treats "construction" as a condition (temporary construction rules are in force). Made after reading the ground truth and before the accuracy run; disclosed in `test/accuracy/report.md`.
 - Sample poles are p291 (San Francisco, 2 hour zone), p241 (Chicago, bus lane pole), p356 (Kent, WA, loading zone): the multi-sign photos the model read exactly right. The higher demo quality poles (p329 Quebec, p355 New Orleans, p23 Chicago) matched on verdicts but had visible misreads (a 9 to 12 and 1:30 to 5 window read as 9 to 5; reversed arrows), so they were not used. Each sample uses one cached live reading shared with the accuracy run, so the quota was spent once per photo.
 - The ground truth set has 26 photos (the labeler's strict legibility rule), not about 30; all 26 are in the accuracy run.
+- Accuracy test times are Mon 9:00 AM, Tue 8:45 AM, Sat 2:00 PM, Sun 3:00 AM (4 per photo, per the operator notes) instead of 3. Expected verdicts are the engine's answer on a hand-written reading, so conditions the app cannot check (snow light, game nights, eclipse day) are expected to be Not sure. Result on 104 checks: 77 right, 23 Not sure, 4 wrong NO, 0 wrong YES; no stricter rerun was needed.
