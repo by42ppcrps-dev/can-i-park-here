@@ -1,0 +1,47 @@
+{
+ "status": 200,
+ "wallMs": 3628,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING ON ANY STREET IN ROCHELLE PARK 3 AM TO 6 AM",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "03:00",
+     "end": "06:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 3559,
+ "usage": {
+  "prompt_tokens": 3075,
+  "completion_tokens": 149,
+  "total_tokens": 3224,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 86.99090576171875
+ },
+ "readAt": "2026-10-25T01:46:57.532Z"
+}

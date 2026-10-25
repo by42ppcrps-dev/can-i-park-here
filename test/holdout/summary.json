@@ -1,0 +1,22 @@
+{
+ "date": "2026-10-24",
+ "photos": 10,
+ "checks": 40,
+ "stayMinutes": 60,
+ "testTimes": [
+  "Mon 9:00 AM",
+  "Tue 8:45 AM",
+  "Sat 2:00 PM",
+  "Sun 3:00 AM"
+ ],
+ "right": 33,
+ "unsure": 4,
+ "wrongNo": 3,
+ "wrongYes": 0,
+ "models": {
+  "@cf/meta/llama-4-scout-17b-16e-instruct": 10
+ },
+ "workerVersion": "a0113948-bf34-4c53-b5b5-71b38090885b",
+ "averageNeuronsPerReading": 98,
+ "averageSecondsPerReading": 8
+}

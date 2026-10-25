@@ -1,0 +1,152 @@
+{
+ "status": 200,
+ "wallMs": 10010,
+ "signs": [
+  {
+   "id": 1,
+   "text": "TOW AWAY NO STANDING OR PARKING 7AM-9:30AM 4PM-6:30PM MONDAY-FRIDAY IF TOWED 727-5000",
+   "readable": true,
+   "arrow": "both",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_standing",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+     ],
+     "start": "07:00",
+     "end": "09:30",
+     "limitMinutes": null,
+     "metered": false,
+     "note": "tow away",
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    },
+    {
+     "kind": "no_standing",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+     ],
+     "start": "16:00",
+     "end": "18:30",
+     "limitMinutes": null,
+     "metered": false,
+     "note": "tow away",
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "NO PARKING",
+   "readable": true,
+   "arrow": "right",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "text": "2 HOUR PARKING 9:30 AM-4 PM MONDAY-FRIDAY 7:00 AM-6:30 PM SATURDAY NO TIME LIMIT PARKING 6:30 PM-10 PM MON-SAT PAY TO PARK",
+   "readable": true,
+   "arrow": "right",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
+     ],
+     "start": "09:30",
+     "end": "16:00",
+     "limitMinutes": 120,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    },
+    {
+     "kind": "time_limit",
+     "days": [
+      "sat"
+     ],
+     "start": "07:00",
+     "end": "18:30",
+     "limitMinutes": 360,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    },
+    {
+     "kind": "free",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+     ],
+     "start": "18:30",
+     "end": "22:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 9944,
+ "usage": {
+  "prompt_tokens": 3075,
+  "completion_tokens": 399,
+  "total_tokens": 3474,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 106.30908966064453
+ },
+ "readAt": "2026-10-25T01:46:22.502Z"
+}

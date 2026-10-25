@@ -1,0 +1,76 @@
+{
+ "status": 200,
+ "wallMs": 10400,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING WHEN ROAD IS SNOW COVERED",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": "when road is snow covered",
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "NO PARKING HERE TO CORNER",
+   "readable": true,
+   "arrow": "right",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 10341,
+ "usage": {
+  "prompt_tokens": 3075,
+  "completion_tokens": 284,
+  "total_tokens": 3359,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 97.4227294921875
+ },
+ "readAt": "2026-10-25T01:46:53.897Z"
+}

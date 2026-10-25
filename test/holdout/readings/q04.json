@@ -1,0 +1,79 @@
+{
+ "status": 200,
+ "wallMs": 8268,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING HERE TO CORNER",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "WINTER PARKING BAN NO PARKING 12 AM TO 6 AM NOV 15TH TO APRIL 15 TH",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "06:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": {
+      "from": "11-15",
+      "to": "04-15"
+     },
+     "largeOnly": false
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 8212,
+ "usage": {
+  "prompt_tokens": 3075,
+  "completion_tokens": 306,
+  "total_tokens": 3381,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 99.12272644042969
+ },
+ "readAt": "2026-10-25T01:46:37.809Z"
+}

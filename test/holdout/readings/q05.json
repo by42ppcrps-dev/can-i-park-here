@@ -1,0 +1,75 @@
+{
+ "status": 200,
+ "wallMs": 5674,
+ "signs": [
+  {
+   "id": 1,
+   "text": "NO PARKING ANY TIME",
+   "readable": true,
+   "arrow": "left",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "8 HR PARKING 8AM-4PM EXCEPT SUNDAYS AND HOLIDAYS",
+   "readable": true,
+   "arrow": "right",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "time_limit",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
+     ],
+     "start": "08:00",
+     "end": "16:00",
+     "limitMinutes": 480,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 5537,
+ "usage": {
+  "prompt_tokens": 3075,
+  "completion_tokens": 244,
+  "total_tokens": 3319,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 94.33181762695312
+ },
+ "readAt": "2026-10-25T01:46:43.488Z"
+}

@@ -1,0 +1,105 @@
+{
+ "status": 200,
+ "wallMs": 7053,
+ "signs": [
+  {
+   "id": 1,
+   "text": "Anytime No Parking",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "no_parking",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "text": "No Off-Road Vehicles",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "other_restricted",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "text": "No Horses",
+   "readable": true,
+   "arrow": "none",
+   "problem": null,
+   "rules": [
+    {
+     "kind": "other_restricted",
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
+     ],
+     "start": "00:00",
+     "end": "24:00",
+     "limitMinutes": null,
+     "metered": false,
+     "note": null,
+     "condition": null,
+     "season": null,
+     "largeOnly": false
+    }
+   ]
+  }
+ ],
+ "model": "@cf/meta/llama-4-scout-17b-16e-instruct",
+ "ms": 7019,
+ "usage": {
+  "prompt_tokens": 3075,
+  "completion_tokens": 230,
+  "total_tokens": 3305,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "neurons": 93.25
+ },
+ "readAt": "2026-10-25T01:47:19.087Z"
+}

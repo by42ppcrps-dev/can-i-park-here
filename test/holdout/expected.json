@@ -1,0 +1,568 @@
+{
+ "stayMinutes": 60,
+ "weekOf": "2026-10-19",
+ "weekNote": "Test times fall in the week of Monday Oct 19, 2026, so rules with printed season dates are judged on real dates.",
+ "testTimes": [
+  {
+   "label": "Mon 9:00 AM",
+   "day": "mon",
+   "time": "09:00"
+  },
+  {
+   "label": "Tue 8:45 AM",
+   "day": "tue",
+   "time": "08:45"
+  },
+  {
+   "label": "Sat 2:00 PM",
+   "day": "sat",
+   "time": "14:00"
+  },
+  {
+   "label": "Sun 3:00 AM",
+   "day": "sun",
+   "time": "03:00"
+  }
+ ],
+ "photos": [
+  {
+   "file": "q01.jpg",
+   "side": null,
+   "note": "Permit only Mon to Sat (both directions). The snow emergency ban and second Monday street cleaning only apply on days the app cannot know, so Sunday 3 AM is Not sure.",
+   "signs": [
+    {
+     "text": "TOW ZONE NO PARKING DURING SNOW EMERGENCY",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": "during a snow emergency"
+      }
+     ]
+    },
+    {
+     "text": "PARKING BY PERMIT ONLY EXCEPT SUNDAYS CITY OF CAMBRIDGE",
+     "arrow": "both",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "permit_only",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "TOW ZONE NO PARKING STREET CLEANING 8 AM TO 2 PM SECOND MONDAY EACH MONTH APRIL 1ST TO DEC 31ST EXCEPT HOLIDAYS",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon"
+       ],
+       "start": "08:00",
+       "end": "14:00",
+       "limitMinutes": null,
+       "note": "street cleaning",
+       "condition": "second Monday of the month",
+       "season": {
+        "from": "04-01",
+        "to": "12-31"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "q02.jpg",
+   "side": "left",
+   "note": "Car on the left, the 2 hour side; the no parking sign points right. The rush hour ban points both ways.",
+   "signs": [
+    {
+     "text": "TOW AWAY NO STANDING OR PARKING 7AM-9:30AM 4PM-6:30PM MONDAY-FRIDAY",
+     "arrow": "both",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_standing",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+       ],
+       "start": "07:00",
+       "end": "09:30",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      },
+      {
+       "kind": "no_standing",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+       ],
+       "start": "16:00",
+       "end": "18:30",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "NO PARKING",
+     "arrow": "right",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "2 HOUR PARKING 9:30AM-4PM MONDAY-FRIDAY 7:00AM-6:30PM SATURDAY NO TIME LIMIT PARKING 6:30PM-10PM MON-SAT PAY TO PARK",
+     "arrow": "left",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+       ],
+       "start": "09:30",
+       "end": "16:00",
+       "limitMinutes": 120,
+       "note": null,
+       "condition": null
+      },
+      {
+       "kind": "time_limit",
+       "days": [
+        "sat"
+       ],
+       "start": "07:00",
+       "end": "18:30",
+       "limitMinutes": 120,
+       "note": null,
+       "condition": null
+      },
+      {
+       "kind": "meter",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat"
+       ],
+       "start": "18:30",
+       "end": "22:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "q03.jpg",
+   "side": null,
+   "note": "The down arrow points at the street below, not a side. No hours printed on the 2 hour pay sign, so all week. 12:01 AM is taken as midnight.",
+   "signs": [
+    {
+     "text": "PAY TO PARK 2 HOUR",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": 120,
+       "note": null,
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "NO PARKING STREET CLEANING 12:01AM - 6AM TUE THUR SAT MORNINGS",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "tue",
+        "thu",
+        "sat"
+       ],
+       "start": "00:00",
+       "end": "06:00",
+       "limitMinutes": null,
+       "note": "street cleaning",
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "q04.jpg",
+   "side": null,
+   "note": "No arrow on the corner sign, so it covers this spot all the time.",
+   "signs": [
+    {
+     "text": "NO PARKING HERE TO CORNER",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "WINTER PARKING BAN NO PARKING 12AM TO 6AM NOV 15TH TO APRIL 15TH",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "06:00",
+       "limitMinutes": null,
+       "note": "winter ban",
+       "condition": null,
+       "season": {
+        "from": "11-15",
+        "to": "04-15"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "q05.jpg",
+   "side": "right",
+   "note": "Car on the right, the 8 hour side. No holidays fall on the test days.",
+   "signs": [
+    {
+     "text": "NO PARKING ANY TIME",
+     "arrow": "left",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    },
+    {
+     "text": "8 HR PARKING 8AM-4PM EXCEPT SUNDAYS AND HOLIDAYS",
+     "arrow": "right",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "time_limit",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat"
+       ],
+       "start": "08:00",
+       "end": "16:00",
+       "limitMinutes": 480,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "q06.jpg",
+   "side": "right",
+   "note": "Car on the right, the side the corner sign covers.",
+   "signs": [
+    {
+     "text": "NO PARKING WHEN ROAD IS SNOW COVERED",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": "when the road is snow covered"
+      }
+     ]
+    },
+    {
+     "text": "NO PARKING HERE TO CORNER",
+     "arrow": "right",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "q07.jpg",
+   "side": null,
+   "note": "The town name sign and the soliciting rule are not parking rules.",
+   "signs": [
+    {
+     "text": "NO PARKING ON ANY STREET IN ROCHELLE PARK 3 AM TO 6 AM",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "03:00",
+       "end": "06:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "q08.jpg",
+   "side": "right",
+   "note": "Car on the right, the pay box side. No hours printed, so paid parking all week.",
+   "signs": [
+    {
+     "text": "STREET CLEANING NO PARKING 7AM-9AM WEDNESDAY APRIL 1 - OCT 31 TOW ZONE",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "wed"
+       ],
+       "start": "07:00",
+       "end": "09:00",
+       "limitMinutes": null,
+       "note": "street cleaning",
+       "condition": null,
+       "season": {
+        "from": "04-01",
+        "to": "10-31"
+       }
+      }
+     ]
+    },
+    {
+     "text": "PAY AT PAY BOX",
+     "arrow": "right",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "meter",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "file": "q09.jpg",
+   "side": null,
+   "note": "Park lot closed sunset to 8 AM. Sunset is not a fixed time, so the expected verdicts are written directly: open on the daytime test times, closed at Sunday 3 AM. The regulations panel also bans overnight parking.",
+   "verdicts": [
+    "yes",
+    "yes",
+    "yes",
+    "no"
+   ]
+  },
+  {
+   "file": "q10.jpg",
+   "side": null,
+   "note": "No horses and no off-road vehicles are not parking rules.",
+   "signs": [
+    {
+     "text": "NO PARKING ANYTIME",
+     "arrow": "none",
+     "readable": true,
+     "rules": [
+      {
+       "kind": "no_parking",
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "00:00",
+       "end": "24:00",
+       "limitMinutes": null,
+       "note": null,
+       "condition": null
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "holdoutNote": "Frozen holdout: 10 photos never used in development, labeled before the first live reading, no prompt or code changes."
+}

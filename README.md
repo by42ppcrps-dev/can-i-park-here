@@ -42,6 +42,8 @@ Tested on 26 real sign photos from Wikimedia Commons, each checked at 4 fixed ti
 
 The hand-written expected answers are in `test/accuracy/expected.json` and every photo's result is in `test/accuracy/report.md`. The first run of this version had 3 wrong YES on one photo (a lot open "5:00 PM to sunset"); the rules were made stricter and only that photo was read again. The report says exactly what changed.
 
+Frozen holdout (Oct 24, 2026): 10 new stacked-sign photos never used during development, picked and labeled by me before the first reading, with no prompt or code changes and no reruns, 40 checks: 33 right (7 of them a correct Not sure), 4 Not sure, 3 wrong NO, 0 wrong YES. The 3 wrong NO were one San Diego park lot, where a general park rules panel was read as no parking at all hours; the 4 Not sure were one New Orleans pole where a down arrow was read as pointing right. Details, photos, and readings are in `test/holdout/`.
+
 ## Run it yourself
 
 You need Node 20 or newer and a Cloudflare account (Workers AI runs on Cloudflare even in local dev).
@@ -118,6 +120,19 @@ Accuracy test photos:
 - [MassDOT Park & Ride Parking Notice, Framingham MA, 2025-11-19](https://commons.wikimedia.org/wiki/File:MassDOT_Park_%26_Ride_Parking_Notice,_Framingham_MA,_2025-11-19.jpg) by Peter Cooper Jr., [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 - [Freight Loading Zone sign on sidewalk at Post Street and South San Pedro Street, San Jose, California](https://commons.wikimedia.org/wiki/File:Freight_Loading_Zone_sign_on_sidewalk_at_Post_Street_and_South_San_Pedro_Street,_San_Jose,_California.jpg) by Mxn, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 - [Genentech HQ parking sign 1](https://commons.wikimedia.org/wiki/File:Genentech_HQ_parking_sign_1.JPG) by BrokenSphere, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
+
+Holdout test photos (`test/holdout/photos/`):
+
+- [Parking signs - Cambridge, MA - IMG 3992](https://commons.wikimedia.org/wiki/File:Parking_signs_-_Cambridge,_MA_-_IMG_3992.JPG) by Daderot, Public domain
+- [Washington, D.C., parking signs 01](https://commons.wikimedia.org/wiki/File:Washington,_D.C.,_parking_signs_01.jpg) by Dada1960, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
+- [Street cleaning sign with hand-cut letters - New Orleans, January 2015](https://commons.wikimedia.org/wiki/File:Street_cleaning_sign_with_hand-cut_letters_-_New_Orleans,_January_2015.jpg) by Erica _ Fischer, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)
+- [Street signs Church and Main Streets downtown Saint Johnsbury VT September 2017](https://commons.wikimedia.org/wiki/File:Street_signs_Church_and_Main_Streets_downtown_Saint_Johnsbury_VT_September_2017.jpg) by Artaxerxes, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- [2013.11.01.104926 Parking sign Kilauea Avenue Hilo Hawaii](https://commons.wikimedia.org/wiki/File:2013.11.01.104926_Parking_sign_Kilauea_Avenue_Hilo_Hawaii.jpg) by Hermann Luyken, [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+- [2014-08-30 09 42 32 "No Parking When Road Is Snow Covered" and "No Parking Here To Corner" signs on Brenwal Avenue in Ewing, New Jersey](https://commons.wikimedia.org/wiki/File:2014-08-30_09_42_32_%22No_Parking_When_Road_Is_Snow_Covered%22_and_%22No_Parking_Here_To_Corner%22_signs_on_Brenwal_Avenue_in_Ewing,_New_Jersey.JPG) by Famartin, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- [2021-07-20 19 08 29 "Entering Rochelle Park" and "No Parking" signs along southbound Bergen County Route 62 (Passaic Street) just south of New Jersey State Route 444 (Garden State Parkway) in Rochelle Park Township, Bergen County, New Jersey](https://commons.wikimedia.org/wiki/File:2021-07-20_19_08_29_%22Entering_Rochelle_Park%22_and_%22No_Parking%22_signs_along_southbound_Bergen_County_Route_62_(Passaic_Street)_just_south_of_New_Jersey_State_Route_444_(Garden_State_Parkway)_in_Rochelle_Park_Township,_Bergen_County,_New_Jersey.jpg) by Famartin, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- [Street cleaning and Park Chicago signs (24269657648)](https://commons.wikimedia.org/wiki/File:Street_cleaning_and_Park_Chicago_signs_(24269657648).jpg) by Eric Fischer, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)
+- [Mission Heights Neighborhood Park regulations signs](https://commons.wikimedia.org/wiki/File:Mission_Heights_Neighborhood_Park_regulations_signs.jpg) by RightCowLeftCoast, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+- [No Horses and No Parking Signs](https://commons.wikimedia.org/wiki/File:No_Horses_and_No_Parking_Signs.jpg) by Rick Obst, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)
 
 ## License
 
