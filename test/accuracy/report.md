@@ -1,6 +1,6 @@
 # Accuracy report
 
-Run 2026-10-24 against https://can-i-park-here.lumegridai.workers.dev (Worker version 9cf0320f-7414-4c06-a4d3-93057a48e277).
+Run 2026-10-24 against the live Worker (version 9cf0320f-7414-4c06-a4d3-93057a48e277), now served at https://park.trylumegrid.com.
 26 photos, 4 test times each (Mon 9:00 AM, Tue 8:45 AM, Sat 2:00 PM, Sun 3:00 AM), 60 minute stay: 104 checks.
 
 | Right | Not sure | Wrong NO | Wrong YES |

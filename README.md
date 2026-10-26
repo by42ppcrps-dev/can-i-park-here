@@ -2,7 +2,7 @@
 
 Snap a parking sign pole. Get one clear answer for right now, and see the whole week at a glance.
 
-**Live:** https://can-i-park-here.lumegridai.workers.dev
+**Live:** https://park.trylumegrid.com
 
 ![Can I Park Here: a giant YES verdict above a week grid](public/og.png)
 

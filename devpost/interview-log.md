@@ -2,7 +2,7 @@
 
 This is the honest record of the planning interviews for `1-start`, `2-scope`, `3-prd`, and `4-spec`.
 
-**How this session ran.** Matt Brady (the learner) was not live. His operations assistant relayed his standing answers in `brief/LEARNER-ANSWERS.md` (dated Sat Oct 24, 2026). Each question below is the one the skill would have asked. Each answer is either:
+**How this session ran.** Matt Brady (the learner) was not live. His answers came from his standing written answers in `brief/LEARNER-ANSWERS.md` (dated Sat Oct 24, 2026). Each question below is the one the skill would have asked. Each answer is either:
 
 - **Quoted**: taken word for word from that file.
 - **Derived**: a direct restatement or combination of lines in that file, with the source line named.
@@ -133,7 +133,7 @@ Answer: approved. Relayed by Matt's operator. Set `status: approved`.
 Quoted: "Cloudflare Workers (free tier) with static assets and a Workers AI binding." "Plain HTML/CSS/JS front end, no framework." "Rules engine in plain JS shared by worker and browser, unit tested with node:test." Learning goal carried from the profile: "plan with an AI before building so a small app comes out polished and trustworthy, not just 'working'."
 
 **Q2 (where it runs). Submission needs a short demo video and a public GitHub repo; deployment is optional. Do you want people to try a live link too?**
-Quoted: "Worker name: can-i-park-here (already reserved, URL https://can-i-park-here.lumegridai.workers.dev). Repo: public on GitHub under by42ppcrps-dev, MIT license." So yes, deployed.
+Quoted: "Worker name: can-i-park-here (already reserved). Repo: public on GitHub under by42ppcrps-dev, MIT license." So yes, deployed.
 Operator decision (Matt to review): the build may deploy for testing, but publishing the repo and anything public waits for Matt, per "Matt owns product direction and anything public."
 
 **Q3 (architecture, batch). In `prd.md > Reading the Signs` the AI reads the photo. Which models, and how do we keep the AI from deciding? In `prd.md > Getting a Photo In` the samples must be instant. Where does their reading come from?**

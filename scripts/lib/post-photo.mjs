@@ -2,7 +2,7 @@
 // Usage: node scripts/lib/post-photo.mjs <photo.jpg> [base url]
 import { readFile } from "node:fs/promises";
 
-export async function postPhoto(path, base = "https://can-i-park-here.lumegridai.workers.dev") {
+export async function postPhoto(path, base = "https://park.trylumegrid.com") {
   const bytes = await readFile(path);
   const type = path.toLowerCase().endsWith(".png") ? "png" : "jpeg";
   const image = `data:image/${type};base64,${bytes.toString("base64")}`;

@@ -1,6 +1,6 @@
 # Holdout accuracy report
 
-Run 2026-10-24 against https://can-i-park-here.lumegridai.workers.dev (Worker version a0113948-bf34-4c53-b5b5-71b38090885b).
+Run 2026-10-24 against the live Worker (version a0113948-bf34-4c53-b5b5-71b38090885b), now served at https://park.trylumegrid.com.
 10 photos, 4 test times each (Mon 9:00 AM, Tue 8:45 AM, Sat 2:00 PM, Sun 3:00 AM), 60 minute stay: 40 checks.
 
 | Right | Not sure | Wrong NO | Wrong YES |

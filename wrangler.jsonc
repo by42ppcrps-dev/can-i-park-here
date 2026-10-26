@@ -5,6 +5,7 @@
   "compatibility_date": "2026-10-13",
   "workers_dev": true,
   "preview_urls": false,
+  "routes": [{ "pattern": "park.trylumegrid.com", "custom_domain": true }],
   "assets": {
     "directory": "./public",
     "not_found_handling": "none"

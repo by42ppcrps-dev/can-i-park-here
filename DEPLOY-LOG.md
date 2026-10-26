@@ -1,6 +1,6 @@
 # Deploy Log
 
-Worker: `can-i-park-here` at https://can-i-park-here.lumegridai.workers.dev
+Worker: `can-i-park-here` at https://park.trylumegrid.com
 
 Each deploy lists its version id and the version it replaced. To roll back, run the command on that line from this folder.
 
@@ -19,3 +19,4 @@ Each deploy lists its version id and the version it replaced. To roll back, run 
 | 2026-10-25 | 9bb3066c-d108-47d9-b2d9-c4fa00f579b5 | 38b2e690-3fc9-4ef3-9e75-fa1002bcbb5b | Validator: sunrise and sunset hours are Not sure | `npx wrangler rollback 38b2e690-3fc9-4ef3-9e75-fa1002bcbb5b` |
 | 2026-10-25 | 9cf0320f-7414-4c06-a4d3-93057a48e277 | 9bb3066c-d108-47d9-b2d9-c4fa00f579b5 | Engine: allowed-only signs Not sure at other times; new samples; demo card | `npx wrangler rollback 9bb3066c-d108-47d9-b2d9-c4fa00f579b5` |
 | 2026-10-25 | a0113948-bf34-4c53-b5b5-71b38090885b | 9cf0320f-7414-4c06-a4d3-93057a48e277 | Accuracy file with the final version id (same counts) | `npx wrangler rollback 9cf0320f-7414-4c06-a4d3-93057a48e277` |
+| 2026-10-26 | e196f8ba-22c8-4b54-80fc-9b0af3077df2 | a0113948-bf34-4c53-b5b5-71b38090885b | Custom domain park.trylumegrid.com; og meta points to it | `npx wrangler rollback a0113948-bf34-4c53-b5b5-71b38090885b` |

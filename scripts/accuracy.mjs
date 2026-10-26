@@ -8,7 +8,7 @@ import { expectedVerdicts, actualVerdicts, classify } from "./lib/score.mjs";
 import { describeRule } from "../public/js/engine/describe.js";
 
 const args = process.argv.slice(2);
-const base = args.find((a) => !a.startsWith("--")) || "https://can-i-park-here.lumegridai.workers.dev";
+const base = args.find((a) => !a.startsWith("--")) || "https://park.trylumegrid.com";
 const refresh = args.includes("--refresh");
 const only = (args.find((a) => a.startsWith("--only=")) || "").slice(7).split(",").filter(Boolean);
 const version = (args.find((a) => a.startsWith("--version=")) || "").slice(10) || null;

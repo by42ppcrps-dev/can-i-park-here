@@ -9,7 +9,7 @@ import { getReading } from "./lib/readings.mjs";
 import { expectedVerdicts, actualVerdicts } from "./lib/score.mjs";
 import { validateReading } from "../public/js/engine/validate.js";
 
-const base = process.argv[2] && !process.argv[2].startsWith("--") ? process.argv[2] : "https://can-i-park-here.lumegridai.workers.dev";
+const base = process.argv[2] && !process.argv[2].startsWith("--") ? process.argv[2] : "https://park.trylumegrid.com";
 const save = process.argv.includes("--save");
 
 const spec = JSON.parse(await readFile("test/samples/poles.json", "utf8"));

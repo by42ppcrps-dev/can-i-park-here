@@ -66,7 +66,7 @@ PRD ref: `prd.md > The Core Journey`.
 - **Run locally:** `npm run dev` (runs `wrangler dev`), then open http://localhost:8787 . For a phone on the same network, open the laptop's address on port 8787, or use the deployed URL.
 - **Tests:** `npm test` (runs `node --test test/`).
 - **Demo recording:** open the deployed URL (or localhost) in a phone-sized window. Show: tap a sample pole, scan, cards, switch a card off and back on, verdict, drag the time travel line until the verdict flips, tap a red block, change a stay chip, then one live photo, then the accuracy card.
-- **Deploy:** `npm run deploy` (runs `wrangler deploy`) to the reserved Worker `can-i-park-here` at https://can-i-park-here.lumegridai.workers.dev . Free tier.
+- **Deploy:** `npm run deploy` (runs `wrangler deploy`) to the reserved Worker `can-i-park-here` at https://park.trylumegrid.com . Free tier.
 - **Public steps belong to Matt** (operator decision, Matt to review): the build can deploy for testing, but the public announcement, publishing the GitHub repo under `by42ppcrps-dev` (MIT), and the Devpost text wait for Matt, since he owns anything public. Submission still needs the demo video and public repo; the deployed URL is extra.
 
 ## Look and Feel
